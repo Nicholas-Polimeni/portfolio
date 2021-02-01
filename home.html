@@ -2,58 +2,111 @@
     <html>
         <head>
             <link rel="stylesheet" href="style.css">
-            <title>test</title>
+            <title>Nicholas Polimeni</title>
         </head>
 
         <body>
             <div class="main">
                 <div class="left-col">
-                    <div class="about">
-                        <img class="pages" id="aboutPage" src="AC Athens 1.jpg" alt="">
-                        <p>I am a first-year student and Create-X Scholar at the Georgia Institute of Technology studying 
-                        Electrical Engineering. I'm originally from Freehold, New Jersey. I'm interested in applying technology 
-                        in public policy and social entrepreneurship, with the goal of creating a more sustainable, equitable world. 
-                        For the past 2 years, I've been an environmental advocate with Citizens' Climate Lobby (CCL). I've lobbied 
-                        on Capitol Hill for policy responses to climate change— specifically the Energy Innovation and Carbon 
-                        Dividend Act (HR763). At Tech, I'm a Campus Leader for CCL and lead the chapter on campus. Some of our 
-                        projects can be found below, in the "projects" section; our two main initiatives are addressing Georgia's 
-                        high low-income energy burden, and using data analytics to improve social media political messaging. 
-                        With CCL, I have also co-authored a policy memo to the Wisconsin Climate Task Force, created by Governor Evers, 
-                        regarding suggested policies for modernizing their energy grid using emissions and generation data. I also 
-                        highlighted the impact of data on revealing inequalities in high-pollution areas vs low-pollution areas.</p>
+                    <div class="pages">
+                        <div id="aboutPage">
+                            <p><b>>ABOUT</b><br>`I am a first-year student and Create-X Scholar at the Georgia Institute of Technology 
+                            studying Electrical Engineering.`` I'm originally from Freehold, New Jersey. I'm interested 
+                            in applying technology in public policy and social entrepreneurship, with the goal of 
+                            creating a more sustainable, equitable world.`` For the past 2 years, I've been an environmental 
+                            advocate with Citizens' Climate Lobby (CCL). I've lobbied on Capitol Hill for policy responses 
+                            to climate change— specifically the Energy Innovation and Carbon Dividend Act (HR763).`` At Tech, 
+                            I'm a Campus Leader for CCL and lead the chapter on campus. Some of our projects can be found 
+                            below, in the "projects" section;`` our two main initiatives are addressing Georgia's high 
+                            low-income energy burden, and using data analytics to improve social media political messaging. 
+                            ``With CCL, I have also co-authored a policy memo to the Wisconsin Climate Task Force, created by 
+                            Governor Evers, regarding suggested policies for modernizing their energy grid using emissions 
+                            and generation data. I also highlighted the impact of data on revealing inequalities in 
+                            high-pollution areas vs low-pollution areas.`` At Tech, I'm also a researcher in the Urban 
+                            Research Group of Dr. Brian Y An in the School of Public Policy.`</p>
+                        </div>
+                        <div id="expPage">
+                            <h3>EXPERIENCE / SKILLS</h3>
+                            <p></p>
+                        </div>
+                        <div id="projPage">
+                            <p><b>>PROJECTS / RESEARCH</b><br>`Analyzing current social media trends using Python to determine the effectiveness of different 
+                            types of political messaging regarding climate change. Data collection was performed by a Python 
+                            web-scraper I created using Reddit's PRAW API.`` This was my first web scraper; I learned this 
+                            utilization of Python in tandem with learning HTML/CSS and a bit of JSON. Learning both together, 
+                            in the context of this project, was beneficial as knowledge of each was required to create a 
+                            working interface between them.`` While Reddit was the first website I collected data from, I am 
+                            planning to collect data from Twitter, as well. Both Reddit and Twitter are the most useful 
+                            platforms for data analytics, as posts are tagged by topic, type, etc.`` The initial data collected 
+                            from Reddit is 200 "top" and "hot" posts from the past month in political subreddits and their 
+                            characteristics.`</p>
+                        </div>
+                        <div id="awardsPage">
+                            <h3>AWARDS</h3>
+                            <p></p>
+                        </div>
+                        <div id="linksPage">
+                            <h3>LINKS / CONTACT</h3>
+                            <p></p>
+                        </div>
+                        <p id="typed"></p>
                     </div>
                 </div>
                 <div class="right-col">
                     <div class="navHead">
                         <h1 id="name"></h1>
-                        <h3>Computer Science Undergrad | Create-X Scholar | <br> Policy Researcher / Advocate @ Georgia Tech</h3>
+                        <h3 id="sub"></h3>
                     </div>
                     <div class="nav">
                         <ul>
-                            <li><a href="#" data-name="about">about</a></li>
-                            <li><a href="#" data-name="exp">experience</a></li>
-                            <li><a href="#" data-name="proj">projects</a></li>
-                            <li><a href="#" data-name="awards">awards</a></li>
-                            <li><a href="#" data-name="links">links / contact</a></li>
+                            <li><a href="#" data-name="aboutPage" onclick="navP(this)">about</a></li>
+                            <li><a href="#" data-name="expPage" onclick="navP(this)">experience</a></li>
+                            <li><a href="#" data-name="projPage" onclick="navP(this)">projects / research</a></li>
+                            <li><a href="#" data-name="awardsPage" onclick="navP(this)">awards</a></li>
+                            <li><a href="#" data-name="linksPage" onclick="navP(this)">links / contact</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
             
-            <script src="typed.min.js"></script> 
-            <script src="velocity.js"></script> 
+            <script src="typed.min.js"></script>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
 
             <script>
                 if ($("#name").length == 1) { 
-                    var typed = new Typed("#name", { 
+                    var head = new Typed("#name", { 
                         strings: ["Nicholas Polimeni"],
                         typeSpeed: 50, 
                         cursorChar: "_",
                     }); 
+                    var sub = new Typed("#sub", { 
+                        startDelay: 950,
+                        strings: ["Computer Science Undergrad | Create-X Scholar | <br> Policy Researcher / Advocate @ Georgia Tech"],
+                        typeSpeed: 0, 
+                        showCursor: false,
+                    }); 
                 } 
-                
-                
+
+                function navP(section){
+                    /**
+                    var elems = document.getElementsByClassName('page');
+                    var length = elems.length;
+
+                    for (var i=0; i<length; i++){
+                        elems[i].style.display='none';
+                    }   **/
+                    var name = "#".concat(section.getAttribute("data-name"));
+                    document.getElementById("typed").innerHTML = "";
+                    var type = new Typed("#typed", { 
+                        stringsElement: name,
+                        typeSpeed: 15, 
+                        backDelay: 625,
+                        backspeed: 500,
+                        cursorChar: "_",
+                    }); 
+                    document.querySelectorAll(".typed-cursor")[0].style.display = "none";
+                }
+
             </script>
         </body>
     </html>
