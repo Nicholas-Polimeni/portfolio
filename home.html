@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <link rel="stylesheet" href="style.css">
+            <title>test</title>
+        </head>
+
+        <body>
+            <div class="main">
+                <div class="left-col">
+                    <div class="about">
+                        <img class="pages" id="aboutPage" src="AC Athens 1.jpg" alt="">
+                        <p>I am a first-year student and Create-X Scholar at the Georgia Institute of Technology studying 
+                        Electrical Engineering. I'm originally from Freehold, New Jersey. I'm interested in applying technology 
+                        in public policy and social entrepreneurship, with the goal of creating a more sustainable, equitable world. 
+                        For the past 2 years, I've been an environmental advocate with Citizens' Climate Lobby (CCL). I've lobbied 
+                        on Capitol Hill for policy responses to climate change— specifically the Energy Innovation and Carbon 
+                        Dividend Act (HR763). At Tech, I'm a Campus Leader for CCL and lead the chapter on campus. Some of our 
+                        projects can be found below, in the "projects" section; our two main initiatives are addressing Georgia's 
+                        high low-income energy burden, and using data analytics to improve social media political messaging. 
+                        With CCL, I have also co-authored a policy memo to the Wisconsin Climate Task Force, created by Governor Evers, 
+                        regarding suggested policies for modernizing their energy grid using emissions and generation data. I also 
+                        highlighted the impact of data on revealing inequalities in high-pollution areas vs low-pollution areas.</p>
+                    </div>
+                </div>
+                <div class="right-col">
+                    <div class="navHead">
+                        <h1 id="name"></h1>
+                        <h3>Computer Science Undergrad | Create-X Scholar | <br> Policy Researcher / Advocate @ Georgia Tech</h3>
+                    </div>
+                    <div class="nav">
+                        <ul>
+                            <li><a href="#" data-name="about">about</a></li>
+                            <li><a href="#" data-name="exp">experience</a></li>
+                            <li><a href="#" data-name="proj">projects</a></li>
+                            <li><a href="#" data-name="awards">awards</a></li>
+                            <li><a href="#" data-name="links">links / contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <script src="typed.min.js"></script> 
+            <script src="velocity.js"></script> 
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
+
+            <script>
+                if ($("#name").length == 1) { 
+                    var typed = new Typed("#name", { 
+                        strings: ["Nicholas Polimeni"],
+                        typeSpeed: 50, 
+                        cursorChar: "_",
+                    }); 
+                } 
+                
+                
+            </script>
+        </body>
+    </html>
