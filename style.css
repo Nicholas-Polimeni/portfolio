@@ -52,6 +52,7 @@ h4 {
     align-items: center;
     float: left;
     overflow: scroll;
+    scrollbar-width: none; /* Firefox 64 */
 }
 
 #pastel {
@@ -224,5 +225,29 @@ h1, h2 {
  
     .nav ul {
         padding-left: 2%;
+    }
+
+    #pastel {
+        background: linear-gradient(-45deg, #FFDFD3, #DFEDDD, #F1D8C5, #FFD9BD);
+        animation: gradient 25s ease infinite;
+        background-size: 400% 100%;
+    }
+    
+    #dark {
+        background: linear-gradient(-45deg, #4a004a, #30004a, #520045, #422e01);
+        animation: gradient 25s ease infinite;
+        background-size: 400% 100%;
+    }
+
+    @keyframes gradient {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
     }
 }
