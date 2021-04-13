@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Nicholas Polimeni is a Computer Science Undergrad., Create-X Scholar, & Public Policy Researcher @ Georgia Tech."
+    />
+    <meta name="robots" content="index, follow">
+    <link rel="stylesheet" href="style.css" />
+    <title>Nicholas Polimeni</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <div class="left-col" id="pastel">
+        <div class="pages">
+          <div class="page" id="aboutPage">
+            <h2>About</h2>
+            <p>
+              Hi! I'm Nick, nice to meet you. <br /><br />
+              I'm interested in applying technology to public policy and social
+              entrepreneurship, with the goal of creating a more sustainable,
+              equitable world. <br /><br />
+              For the past 2 years, I've been an environmental advocate with
+              <a href="https://cclusa.org" target="_blank"
+                >Citizens' Climate Lobby (CCL)</a
+              >. I've lobbied on Capitol Hill, in the offices of various U.S.
+              Senators and Represenatives, for policy responses to climate
+              change— specifically the
+              <a href="https://energyinnovationact.org" target="_blank"
+                >Energy Innovation and Carbon Dividend Act (HR 2307)</a
+              >. <br /><br />
+              I've also co-authored a CCL-sponsored memo advising methods for
+              the Wisconsin Climate Task Force to collect electricity
+              consumption and emissions data. focused on the integration of data
+              from Midcontinent ISO (MISO) and data analysis applied to
+              environmental justice. <br /><br />
+              At Tech, I lead our chapter of Citizens' Climate which has
+              received endorsements for HR 2307 from Atlanta City Council
+              members and local businesses. <br /><br />
+              I'm also a Researcher in Dr. Brian An's Urban Research Group. I've
+              created software to organize our datasets, and am drafting a
+              research proposal focused on discimination in public housing.
+              <br /><br />
+            </p>
+          </div>
+          <div class="page" id="expPage">
+            <h2>Experience</h2>
+            <h4>Skills</h4>
+            <p>
+              <b>Technical:</b> Java | Python | HTML | CSS | JavaScript | MATLAB
+              <br />
+              <b>Communication:</b> Presentations | Memos | Group organizing
+            </p>
+            <h4>Urban Research Group</h4>
+            <ul>
+              <li>
+                Disaggregated amenities data from 600,000 properties with Python
+                Pandas / NumPy for the group's database.
+              </li>
+              <li>
+                Drafting a research proposal on the impact of denying formerly
+                incarcerated individuals from publicly funded housing,
+                specifically related to recidivism rates.
+              </li>
+              <li>
+                Reviews current literature on tax increment financing and
+                multifamily housing affordability.
+              </li>
+            </ul>
+            <h4>Citizens' Climate</h4>
+            <ul>
+              <li>
+                Lobbied in the offices of Senator Purdue, Warnock, and
+                Representatives Johnson, Smith, Norcross, and Massie for the
+                Energy Innovation and Carbon Dividend Act (HR 763 in the 116th
+                Congress). Helped arrange lobby meetings for 15+ students in
+                Georgia.
+              </li>
+              <li>
+                Led an effort to research the most effective climate-related
+                messaging on social media. Created a Python web scraper using
+                Reddit's PRAW API to collect hundreds of top posts from various
+                subreddits.
+              </li>
+              <li>
+                Co-authored a policy memo advising methods for the Wisconsin
+                Climate Task Force to collect electricity consumption and
+                emissions data; focused on the integration of data from
+                Midcontinent ISO (MISO) and data analysis applied to
+                environmental justice. Four recommendations from the memo were
+                included in the final policy guidelines submitted to Governor
+                Evers and the Wisconsin legislature.
+              </li>
+              <li>
+                Assists regional staff in coordinating 25+ student volunteers in
+                the Mid-Atlantic. Panelist and organizer for the CCL
+                Mid-Atlantic Regional Conference.
+              </li>
+            </ul>
+          </div>
+          <div class="page" id="linksPage">
+            <h2>Links / Contact</h2>
+            <p>
+              Email: nicholas.polimeni ("at") gatech.edu (or) @outlook.com (or)
+              <a href="mailto:nicholas.polimeni@gatech.edu">click here</a
+              ><br /><br />
+              LinkedIn:
+              <a href="https://linkedin.com/in/nickpolimeni" target="_blank"
+                >click here</a
+              ><br /><br />
+              GitHub:
+              <a href="https://github.com/Nicholas-Polimeni" target="_blank"
+                >click here</a
+              ><br /><br />
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="right-col">
+        <div class="navHead">
+          <h1 id="name"></h1>
+          <h3 id="sub"></h3>
+        </div>
+        <div class="nav">
+          <ul>
+            <li>
+              <a href="#" data-name="aboutPage" onclick="navP(this)">about</a>
+            </li>
+            <li>
+              <a href="#" data-name="expPage" onclick="navP(this)"
+                >experience</a
+              >
+            </li>
+            <li>
+              <a href="#" data-name="linksPage" onclick="navP(this)"
+                >links / contact</a
+              >
+            </li>
+            <li>
+              <br /><br /><a id="colorScheme" href="#" onclick="changeMode()"
+                >(Dark / Cyberpunk Mode)</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <script src="typed.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+      if ($("#name").length == 1) {
+        var head = new Typed("#name", {
+          strings: ["Nicholas Polimeni"],
+          typeSpeed: 50,
+          cursorChar: "_",
+        });
+        var sub = new Typed("#sub", {
+          startDelay: 950,
+          strings: [
+            "Computer Science Undergraduate,<br>Create-X Scholar,<br>Policy Researcher &amp; Advocate,<br>@ Georgia Tech",
+          ],
+          typeSpeed: 0,
+          showCursor: false,
+        });
+      }
+
+      var currentSection;
+      var navPFlag = false;
+      function navP(newSection) {
+        //$(".left-col").css("animation", "gradient 25s ease infinite");
+        var name = newSection.getAttribute("data-name");
+        if (navPFlag == false) {
+          document.getElementById(name).style.display = "block";
+          currentSection = name;
+          navPFlag = true;
+          return;
+        } else {
+          document.getElementById(currentSection).style.display = "none";
+          document.getElementById(name).style.display = "block";
+          currentSection = name;
+        }
+      }
+
+      var light = true;
+      function changeMode() {
+        if (light == true) {
+          document.getElementById("colorScheme").innerText =
+            "(Light / Pastel Mode)";
+          document.documentElement.style.setProperty("--main-color", "#100D23");
+          document.documentElement.style.setProperty("--highlight", "#c592ff");
+          document.documentElement.style.setProperty("--text-color", "white");
+          document.documentElement.style.setProperty("--titles", "#c592ff");
+          document.documentElement.style.setProperty("--hover", "white");
+          document.getElementById("pastel").id = "dark";
+          light = false;
+        } else {
+          document.getElementById("colorScheme").innerText =
+            "(Dark / Cyberpunk Mode)";
+          document.documentElement.style.setProperty("--main-color", "#fef6ec");
+          document.documentElement.style.setProperty("--highlight", "#D9BBE6");
+          document.documentElement.style.setProperty("--text-color", "#484848");
+          document.documentElement.style.setProperty("--titles", "black");
+          document.documentElement.style.setProperty("--hover", "black");
+          document.getElementById("dark").id = "pastel";
+          light = true;
+        }
+      } //scrollbar not hidden on Firefox
+    </script>
+  </body>
+</html>
