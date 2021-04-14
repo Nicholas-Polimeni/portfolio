@@ -57,7 +57,7 @@ h4 {
 
 #pastel {
     background: linear-gradient(-45deg, #FFDFD3, #DFEDDD, #F1D8C5, #FFD9BD);
-    animation: gradient 7s ease infinite;
+    animation: gradient 9s ease infinite;
     background-size: 400% 400%;
 }
 
@@ -229,13 +229,13 @@ h1, h2 {
 
     #pastel {
         background: linear-gradient(-45deg, #FFDFD3, #DFEDDD, #F1D8C5, #FFD9BD);
-        animation: gradient 13s ease infinite;
+        animation: gradient 16s ease infinite;
         background-size: 300% 100%;
     }
     
     #dark {
         background: linear-gradient(-45deg, #4a004a, #30004a, #520045, #422e01);
-        animation: gradient 13s ease infinite;
+        animation: gradient 16s ease infinite;
         background-size: 300% 100%;
     }
 
