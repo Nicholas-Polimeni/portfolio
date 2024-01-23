@@ -1,0 +1,24 @@
+project:
+  type: website
+
+website:
+  title: "Nicholas Polimeni"
+  navbar:
+    right:
+      - posts.qmd
+      - index.qmd
+      - icon: linkedin
+        href: https://www.linkedin.com/in/nickpolimeni/
+      - icon: github
+        href: https://github.com/Nicholas-Polimeni
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-depth: 2
+
+
+
+
+

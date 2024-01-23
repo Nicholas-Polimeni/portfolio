@@ -1,0 +1,14 @@
+---
+title: "About"
+about:
+  template: jolla
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/nickpolimeni/
+    - icon: github
+      text: Github
+      href: https://github.com/Nicholas-Polimeni
+---
+
+About this blog

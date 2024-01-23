@@ -1,0 +1,35 @@
+/* css styles*/
+:root {
+    --bg-color: #fff;
+}
+
+.navbar {
+    background-color: var(--bg-color);
+}
+
+.quarto-title-banner {
+    background-color: var(--bg-color);
+}
+
+.quarto-title-block {
+    background-color: var(--bg-color);
+}
+
+.default {
+    background-color: var(--bg-color);
+}
+
+#quarto-content {
+    background-color: var(--bg-color);
+}
+
+.listing-categories {
+    font-weight: 450;
+    font-size: 1.05em;
+}
+
+.quarto-title .quarto-categories .quarto-category {
+    font-weight: 450;
+    font-size: .7em;
+    opacity: .9;
+}
