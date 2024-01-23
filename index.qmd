@@ -17,7 +17,7 @@ At Collins Aerospace, as a Software Engineer - AI/ML Data Platform, I led enhanc
 
 My passion lies in leveraging technology and public policy for a sustainable, equitable world. As an environmental advocate with Citizens' Climate Lobby, I've lobbied for climate policies and previously led the Georgia Tech chapter, gaining support from local leaders.
 
-::: {.callout-tip}
+::: {.callout-note}
 Open to Full-Time Software and Data Roles Starting May 2024.
 :::
 
