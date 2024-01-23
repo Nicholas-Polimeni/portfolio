@@ -8,17 +8,26 @@ author:
         state: GA
 date: "2024-01-22"
 categories: [code, analysis]
+execute:
+  echo: false
 format:
     html:
         embed-resources: True
         self-contained: true
         toc: true
+jupyter: fulton-vis
+notebook-view:
+  - notebook: generate_vis.ipynb
+    title: "Generate Vis for Fulton County Appeals"
+    url: https://github.com/Nicholas-Polimeni/fulton-appeals-vis/blob/main/generate_vis.ipynb
 ---
 
 ## Introduction
 
+Acknowledgements: Urban Research Group (Brian An, Jenny Moody)
+
 ### Abstract
-Georgia's property tax appeal process favors the appeal filer rather than the county; appeal filers can choose to pay 80% of their taxes in a year which they file an appeal, placing the burden of proof on the county. Whether the tax bill remains the same or is reduced after the appeal, the property's tax assessment will be frozen for the next two successive years (cite).
+Georgia's property tax appeal process favors the appeal filer rather than the county; appeal filers can choose to pay 80% of their taxes in a year which they file an appeal, placing the burden of proof on the county. Whether the tax bill remains the same or is reduced after the appeal, the property's tax assessment will be frozen for the next two successive years ().
 
 These features make the appeals process an opportune target for exploitation by high value properties. In particular, serial appealers are a serious concern that may reduce the county's ability to fairly respond to other appealers. Presumably, serial appealers are owners of high value properties who can afford the time or expense of the appeals process.
 
@@ -30,11 +39,36 @@ View the full source code [here](https://github.com/Nicholas-Polimeni/fulton-app
 ## Methods
 
 ### Data Sources
+Appeals data was kindly provided to the Urban Research Group by the Fulton County Tax Assessor's Office. For other parcel characteristics, 2022 Tax Parcel data was downloaded from the publicly available Fulton County GIS portal. Fulton County cities boundaries were aquired from the ARC Open Data and Mapping Hub.
 
 ### Procedure
+Appeals data was outer joined to tax parcel data on Parcel ID. The resulting dataframe contains all appeals between 2011 and 2022 with their associated parcel data, as well as parcels that had no appeals over the period. After confirming both the tax parcel and city boundary dataset had an identical coordinate reference system (CRS), the dataframe was spatially (predicate: within) joined the city boundaries. Each parcel now had a column corresponding to its city name.
+
+::: {.callout-note}
+It is important to note a minor limitation of this approach; because the tax parcel data is from 2022 but appeals start in 2011, some parcels may have changed over the period. 6.3K parcels could not be matched to the 2022 data, resulting in a total of 273K valid parcels. I believe this limitation is negligable as our main focus is repeat appealers; a parcel which has changed throughout the period cannot be accurately included.
+:::
+
+Tables were generated with key measures at each level, one that aggreggated appeals at the city level, another at the parcel level, and another by year. While I outline some key decisions here, I encourage viewing the source code for the complete implementation. 
+
+Notably, appeals were considered successful only if the difference between Notice Assessment and Current Assessment was positive. In the appeals data, Notice Assessment is the original tax bill assessment, wherease current assessment is the result after a possible adjustment. Therefore, appeals were only counted as successful if their tax bill assessment was reduced. The calculated difference in assessments were then adjusted for inflation. However, this undercounts the total impact that the appeals process has on tax revenue, as detailed later in the discussion section.
+
+Only successful appeals were considered when calculating the mean and median percent change in assessment. If all appeals were considered, the many unsuccessful appeals would undoubtly reduce the result. This calculation may be worth revisitng to understand the mean reduction on a per-parcel level.
+
+Finally, lost revenue was calculated by taking the sum of tax bill reductions caused by successful appeals and multiplying them by 0.00432. Georgia calculates a tax bill by multiplying the property's assessed value by 40% and the millage rate (). The number I derived is a lower bound estimate of millage rates throughout Fulton County, multiplied by 0.4. Still, this calculation undercounts even further than the lower bound, as discussed in the following section.
+
 
 ## Findings
 
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-<iframe src="num_appeals.html" width="100%" height="400"></iframe>
+### Results and Visualizations
+:::{.column-screen-inset}
+{{< embed C:\Users\Nick\Documents\code\fulton-appeals-vis\generate_vis.ipynb#num_appeals >}}
+{{< embed C:\Users\Nick\Documents\code\fulton-appeals-vis\generate_vis.ipynb#pct_fulton_appeals >}}
+{{< embed C:\Users\Nick\Documents\code\fulton-appeals-vis\generate_vis.ipynb#pct_appeals_over_per_parcels >}}
+{{< embed C:\Users\Nick\Documents\code\fulton-appeals-vis\generate_vis.ipynb#animated_n_appeals >}}
+{{< embed C:\Users\Nick\Documents\code\fulton-appeals-vis\generate_vis.ipynb#success_city >}}
+{{< embed C:\Users\Nick\Documents\code\fulton-appeals-vis\generate_vis.ipynb#percent_success >}}
+{{< embed C:\Users\Nick\Documents\code\fulton-appeals-vis\generate_vis.ipynb#sum_appealed >}}
+:::
 
+### Discussion
+This analysis is not exhaustive. Calculating reductions in tax bills using only Notice and Current Assessments undercounts 1) appreciation that would accrue if the assessment was not frozen by the appeal, and 2) any instances of under appraisal both proceeding the appeal and following it. There have been numerous accounts of systemic under appraisal, especially for high value properties, that is largely codified into the apprasial process. However, this topic needs to be investigated further.

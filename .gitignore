@@ -1,2 +1,5 @@
 /.quarto/
 fulton-vis/
+data/
+output/
+__pycache__/
