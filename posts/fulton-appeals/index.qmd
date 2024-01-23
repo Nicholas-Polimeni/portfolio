@@ -27,11 +27,11 @@ notebook-view:
 Acknowledgements: Urban Research Group (Brian An, Jenny Moody)
 
 ### Abstract
-Georgia's property tax appeal process favors the appeal filer rather than the county; appeal filers can choose to pay 80% of their taxes in a year which they file an appeal, placing the burden of proof on the county. Whether the tax bill remains the same or is reduced after the appeal, the property's tax assessment will be frozen for the next two successive years ().
+Georgia's property tax appeal process favors the filer over the county tax office. Appeal filers may pay only 80% of their property taxes when filing an appeal, placing the burden of proof on the county. Regardless the result of the appeal, the property's assessment will be frozen for the next two successive years [^1]. There is no limit on filing appeals.
 
-These features make the appeals process an opportune target for exploitation by high value properties. In particular, serial appealers are a serious concern that may reduce the county's ability to fairly respond to other appealers. Presumably, serial appealers are owners of high value properties who can afford the time or expense of the appeals process.
+These features make the appeals process a target for exploitation. Serial appealers may burden the county's resources and ability to fairly consider other appeals. This investigation aims to determine which properties are likely to be serial appealers. Presumably, they tend to be owners of high value properties, who stand to benefit despite the time and expense of the appeals process.
 
-This article illustrates the geospatial concentration of appeal filers in Fulton County, the seat of the Atlanta metropolitan statistical area. Serial appealers tend to concentrate in North Atlanta, where property values are higher than the regional average.
+This article illustrates the geospatial concentration of appeal filers in Fulton County, the seat of the Atlanta metropolitan statistical area. I find a moderate geospatial concentration of serial appealers in north Fulton, partially confirming the hypothesis.
 
 ### Source Code
 View the full source code [here](https://github.com/Nicholas-Polimeni/fulton-appeals-vis).
@@ -39,22 +39,22 @@ View the full source code [here](https://github.com/Nicholas-Polimeni/fulton-app
 ## Methods
 
 ### Data Sources
-Appeals data was kindly provided to the Urban Research Group by the Fulton County Tax Assessor's Office. For other parcel characteristics, 2022 Tax Parcel data was downloaded from the publicly available Fulton County GIS portal. Fulton County cities boundaries were aquired from the ARC Open Data and Mapping Hub.
+Appeals data was kindly provided to the Urban Research Group by the Fulton County Tax Assessor's Office. For other parcel characteristics, Tax Parcel data (2022) was downloaded from the publicly available Fulton County GIS Portal[^2]. Fulton County cities boundaries were aquired from the ARC Open Data and Mapping Hub[^3].
 
 ### Procedure
-Appeals data was outer joined to tax parcel data on Parcel ID. The resulting dataframe contains all appeals between 2011 and 2022 with their associated parcel data, as well as parcels that had no appeals over the period. After confirming both the tax parcel and city boundary dataset had an identical coordinate reference system (CRS), the dataframe was spatially (predicate: within) joined the city boundaries. Each parcel now had a column corresponding to its city name.
+Appeals data was outer joined to tax parcel data on Parcel ID. The resulting dataframe contains all appeals from 2011 to 2022 with their associated parcel data, and parcels that had no appeals over the period. After confirming both the tax parcel and city boundary dataset had an identical coordinate reference system (CRS), the dataframe was spatially (predicate: within) joined the city boundaries. Each parcel now had a column corresponding to its city name.
 
 ::: {.callout-note}
-It is important to note a minor limitation of this approach; because the tax parcel data is from 2022 but appeals start in 2011, some parcels may have changed over the period. 6.3K parcels could not be matched to the 2022 data, resulting in a total of 273K valid parcels. I believe this limitation is negligable as our main focus is repeat appealers; a parcel which has changed throughout the period cannot be accurately included.
+It is important to note a minor limitation of this approach. Since tax parcel data is limited only to 2022 but appeals start in 2011, some parcels may have changed throughout the study period. 6.3K parcels could not be matched to the 2022 data, resulting in 273K valid parcels. I believe this limitation is negligable. Our main focus is repeat appealers and a parcel which has changed throughout the period cannot be accurately included.
 :::
 
 Tables were generated with key measures at each level, one that aggreggated appeals at the city level, another at the parcel level, and another by year. While I outline some key decisions here, I encourage viewing the source code for the complete implementation. 
 
-Notably, appeals were considered successful only if the difference between Notice Assessment and Current Assessment was positive. In the appeals data, Notice Assessment is the original tax bill assessment, wherease current assessment is the result after a possible adjustment. Therefore, appeals were only counted as successful if their tax bill assessment was reduced. The calculated difference in assessments were then adjusted for inflation. However, this undercounts the total impact that the appeals process has on tax revenue, as detailed later in the discussion section.
+Notably, an appeal is successful if the difference between Notice Assessment and Current Assessment was positive. Notice Assessment is the original tax bill assessment, whereas Current Assessment is the result after a possible adjustment. Therefore, appeals are successful when the tax bill assessment is reduced. The calculated difference in assessment is adjusted for inflation. However, this undercounts the total impact of the appeals process on tax revenue, as detailed in the discussion section.
 
-Only successful appeals were considered when calculating the mean and median percent change in assessment. If all appeals were considered, the many unsuccessful appeals would undoubtly reduce the result. This calculation may be worth revisitng to understand the mean reduction on a per-parcel level.
+Only successful appeals are considered when calculating the mean and median percent change in assessment. Including all appeals would skew reduce the result towards zero. This calculation may be worth revisitng to understand the mean reduction on a per-parcel level.
 
-Finally, lost revenue was calculated by taking the sum of tax bill reductions caused by successful appeals and multiplying them by 0.00432. Georgia calculates a tax bill by multiplying the property's assessed value by 40% and the millage rate (). The number I derived is a lower bound estimate of millage rates throughout Fulton County, multiplied by 0.4. Still, this calculation undercounts even further than the lower bound, as discussed in the following section.
+Finally, lost revenue is the sum of tax bill reductions multiplied by 0.00432. Georgia calculates a tax bill by multiplying the property's assessed value by 40% and then multiplying the resulting value by the millage rate [^3]. The number I derived is a lower bound estimate of millage rates throughout Fulton County, multiplied by 0.4. Still, this calculation undercounts even further than the lower bound, as discussed in the following section.
 
 ## Findings
 
@@ -66,18 +66,20 @@ Finally, lost revenue was calculated by taking the sum of tax bill reductions ca
 ::: {.column-screen-inset}
 {{< embed C:\Users\Nick\Documents\code\fulton-appeals-vis\generate_vis.ipynb#pct_fulton_appeals >}}
 :::
+
 Atlanta, with the highest density of parcels and largest land area in the county, has the greatest number of appeals (50% of all appeals) filed within its boundaries.
 
 ::: {.column-screen-inset}
 {{< embed C:\Users\Nick\Documents\code\fulton-appeals-vis\generate_vis.ipynb#pct_appeals_over_per_parcels >}}
 :::
-This measure attempts to normalize this metric by accounting for the number of unique parcels in each city. I find that this measure, equal to (% of total appeals / % of total parcels) for each city, provides more insight into cities that account for more appeals than expected based on size.
+
+This measure normalizes the metric by accounting for the number of unique parcels in each city. Such a metric provides insight into cities that account for more appeals than expected.
 
 ::: {.column-screen-inset}
 {{< embed C:\Users\Nick\Documents\code\fulton-appeals-vis\generate_vis.ipynb#animated_n_appeals >}}
 :::
 
-As southern Fulton tends to have lower property values than northern Fulton, this map demonstrates an unexpected relationship. There are a relatively high number of parcels in southern Fulton county that file up to 5 repeat appeals. After 5 appeals, the distribution begins to shift significantly to Atlanta, Sandy Springs (Buckhead), and northern Fulton, with few parcels in southern Fulton filing past this point. Such a pattern appears to indicate that more unique parcels in southern Fulton have filed repeat appeals overall, but northern Fulton has a higher share of serial filers. Between 5 to 6 appeals appears to be the boundary point.
+Taken in context that southern Fulton tends to have lower property values than northern Fulton, this map provides useful insights. There are a relatively high number of parcels in southern Fulton county that file up to five repeat appeals. After five appeals, the distribution begins to shift significantly to Atlanta, Sandy Springs (Buckhead), and northern Fulton, with few parcels in southern Fulton filing repeat appeals beyond this threshold. Such a pattern appears to indicate that more unique parcels in southern Fulton have filed repeat appeals overall, but northern Fulton has a higher share of serial filers. Between five to six appeals appears to be the threshold.
 
 ::: {.column-screen-inset}
 {{< embed C:\Users\Nick\Documents\code\fulton-appeals-vis\generate_vis.ipynb#success_city >}}
@@ -86,12 +88,21 @@ As southern Fulton tends to have lower property values than northern Fulton, thi
 ::: {.column-screen-inset}
 {{< embed C:\Users\Nick\Documents\code\fulton-appeals-vis\generate_vis.ipynb#percent_success >}}
 :::
-There are not major differences in appeal success rate between cities. Sandy Springs, Chattahoochee Hills, Fairburn, and Alpharetta appear to be slightly more successful than average. Mountain Park is an outlier but this is likely due to its small sample size. Chattahoochee Hills and Fairburn also have few parcels compared to Sandy Springs and Alpharetta. However, no significance test was ran for this analysis.
+
+No major differences in appeal success rate exists between cities. Sandy Springs, Chattahoochee Hills, Fairburn, and Alpharetta are slightly more successful than average. Mountain Park is an outlier but has a small sample size. Chattahoochee Hills and Fairburn also have few parcels compared to Sandy Springs and Alpharetta. However, no significance test was run for this analysis.
 
 ::: {.column-screen-inset}
 {{< embed C:\Users\Nick\Documents\code\fulton-appeals-vis\generate_vis.ipynb#sum_appealed >}}
 :::
-The sum successfully appealed is heavily dependent on the mean property values in that city. Unsurprisingly, the vast majority of tax bill reductions comes from Atlanta, lagged by Sandy Springs. Its important to note that these cities also have a large portion of high value commercial and office space.
+
+The sum of tax bill reductions is heavily dependent on the mean property values of each city. Unsurprisingly, the vast majority of tax bill reductions come from Atlanta, lagged by Sandy Springs. These cities also have a large portion of high value commercial and office space.
 
 ### Discussion
-This analysis is not exhaustive. Calculating reductions in tax bills using only Notice and Current Assessments undercounts 1) appreciation that would accrue if the assessment was not frozen by the appeal, and 2) any instances of under appraisal both proceeding the appeal and following it. There have been numerous accounts of systemic under appraisal, especially for high value properties, that is largely codified into the apprasial process. However, this topic needs to be investigated further.
+Most tax bill reductions in Fulton County come from Atlanta and Sandy Springs (Buckhead). Occasional repeat appealers (5 or less appeals over 12 years) tend to concentrate in southern Fulton where property values are generally low; serial repeat appealers are heavily concentrated in northern Fulton where property values are generally high.
+
+This analysis is not exhaustive and no statistical tests were run. Calculating reductions in tax bills using only Notice and Current Assessments undercounts 1) appreciation that would accrue if the assessment was not frozen by the appeal, and 2) any instances of under appraisal both proceeding the appeal and following it. There have been numerous accounts of systemic under appraisal, especially for high value properties. Such practices are largely codified into the apprasial process. This topic should be investigated further.
+
+[^1]: [2022 Georgia Code - Justia](https://law.justia.com/codes/georgia/2022/title-48/chapter-5/article-5/part-2/section-48-5-299/)
+[^2]: [Fulton County GIS Portal](https://gisdata.fultoncountyga.gov/datasets/5a92cc0c98ab46a68548f106dcf71c5d_0/explore?location=33.842942%2C-84.476950%2C10.92)
+[^3]: [ARC Open Data and Mapping Hub](https://opendata.atlantaregional.com/)
+[^4]: [GA Department of Revenue](https://dor.georgia.gov/local-government-services/digest-compliance-section/property-tax-millage-rates)
