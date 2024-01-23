@@ -56,19 +56,42 @@ Only successful appeals were considered when calculating the mean and median per
 
 Finally, lost revenue was calculated by taking the sum of tax bill reductions caused by successful appeals and multiplying them by 0.00432. Georgia calculates a tax bill by multiplying the property's assessed value by 40% and the millage rate (). The number I derived is a lower bound estimate of millage rates throughout Fulton County, multiplied by 0.4. Still, this calculation undercounts even further than the lower bound, as discussed in the following section.
 
-
 ## Findings
 
 ### Results and Visualizations
-:::{.column-screen-inset}
+::: {.column-screen-inset}
 {{< embed C:\Users\Nick\Documents\code\fulton-appeals-vis\generate_vis.ipynb#num_appeals >}}
+:::
+
+::: {.column-screen-inset}
 {{< embed C:\Users\Nick\Documents\code\fulton-appeals-vis\generate_vis.ipynb#pct_fulton_appeals >}}
+:::
+Atlanta, with the highest density of parcels and largest land area in the county, has the greatest number of appeals (50% of all appeals) filed within its boundaries.
+
+::: {.column-screen-inset}
 {{< embed C:\Users\Nick\Documents\code\fulton-appeals-vis\generate_vis.ipynb#pct_appeals_over_per_parcels >}}
+:::
+This measure attempts to normalize this metric by accounting for the number of unique parcels in each city. I find that this measure, equal to (% of total appeals / % of total parcels) for each city, provides more insight into cities that account for more appeals than expected based on size.
+
+::: {.column-screen-inset}
 {{< embed C:\Users\Nick\Documents\code\fulton-appeals-vis\generate_vis.ipynb#animated_n_appeals >}}
+:::
+
+As southern Fulton tends to have lower property values than northern Fulton, this map demonstrates an unexpected relationship. There are a relatively high number of parcels in southern Fulton county that file up to 5 repeat appeals. After 5 appeals, the distribution begins to shift significantly to Atlanta, Sandy Springs (Buckhead), and northern Fulton, with few parcels in southern Fulton filing past this point. Such a pattern appears to indicate that more unique parcels in southern Fulton have filed repeat appeals overall, but northern Fulton has a higher share of serial filers. Between 5 to 6 appeals appears to be the boundary point.
+
+::: {.column-screen-inset}
 {{< embed C:\Users\Nick\Documents\code\fulton-appeals-vis\generate_vis.ipynb#success_city >}}
+:::
+
+::: {.column-screen-inset}
 {{< embed C:\Users\Nick\Documents\code\fulton-appeals-vis\generate_vis.ipynb#percent_success >}}
+:::
+There are not major differences in appeal success rate between cities. Sandy Springs, Chattahoochee Hills, Fairburn, and Alpharetta appear to be slightly more successful than average. Mountain Park is an outlier but this is likely due to its small sample size. Chattahoochee Hills and Fairburn also have few parcels compared to Sandy Springs and Alpharetta. However, no significance test was ran for this analysis.
+
+::: {.column-screen-inset}
 {{< embed C:\Users\Nick\Documents\code\fulton-appeals-vis\generate_vis.ipynb#sum_appealed >}}
 :::
+The sum successfully appealed is heavily dependent on the mean property values in that city. Unsurprisingly, the vast majority of tax bill reductions comes from Atlanta, lagged by Sandy Springs. Its important to note that these cities also have a large portion of high value commercial and office space.
 
 ### Discussion
 This analysis is not exhaustive. Calculating reductions in tax bills using only Notice and Current Assessments undercounts 1) appreciation that would accrue if the assessment was not frozen by the appeal, and 2) any instances of under appraisal both proceeding the appeal and following it. There have been numerous accounts of systemic under appraisal, especially for high value properties, that is largely codified into the apprasial process. However, this topic needs to be investigated further.
