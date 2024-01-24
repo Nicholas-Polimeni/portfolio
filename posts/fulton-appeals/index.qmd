@@ -21,7 +21,7 @@ notebook-links: false
 
 ## Introduction
 
-Acknowledgements: Urban Research Group (Brian An, Jenny Moody)
+**Acknowledgements:** Urban Research Group (Brian An, Jenny Moody) for their assistance in understanding Fulton County's tax parcel and appeals data.
 
 ### Abstract
 Georgia's property tax appeal process favors the filer over the county tax office. Appeal filers may pay only 80% of their property taxes when filing an appeal, placing the burden of proof on the county. Regardless the result of the appeal, the property's assessment will be frozen for the next two successive years [^1]. There is no limit on filing appeals.
@@ -71,6 +71,10 @@ Atlanta, with the highest density of parcels and largest land area in the county
 :::
 
 This measure normalizes the metric by accounting for the number of unique parcels in each city. Such a metric provides insight into cities that account for more appeals than expected.
+
+::: {.column-screen-inset}
+![](repeat_appeals.png){width=925 height=650}
+:::
 
 ::: {.column-screen-inset}
 {{< embed C:\Users\Nick\Documents\code\fulton-appeals-vis\generate_vis.ipynb#animated_n_appeals >}}
