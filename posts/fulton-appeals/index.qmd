@@ -16,10 +16,7 @@ format:
         self-contained: true
         toc: true
 jupyter: fulton-vis
-notebook-view:
-  - notebook: generate_vis.ipynb
-    title: "Generate Vis for Fulton County Appeals"
-    url: https://github.com/Nicholas-Polimeni/fulton-appeals-vis/blob/main/generate_vis.ipynb
+notebook-links: false
 ---
 
 ## Introduction
@@ -54,7 +51,7 @@ Notably, an appeal is successful if the difference between Notice Assessment and
 
 Only successful appeals are considered when calculating the mean and median percent change in assessment. Including all appeals would skew reduce the result towards zero. This calculation may be worth revisitng to understand the mean reduction on a per-parcel level.
 
-Finally, lost revenue is the sum of tax bill reductions multiplied by 0.00432. Georgia calculates a tax bill by multiplying the property's assessed value by 40% and then multiplying the resulting value by the millage rate [^3]. The number I derived is a lower bound estimate of millage rates throughout Fulton County, multiplied by 0.4. Still, this calculation undercounts even further than the lower bound, as discussed in the following section.
+Finally, lost revenue is the sum of tax bill reductions multiplied by 0.00432. Georgia calculates a tax bill by multiplying the property's assessed value by 40% and then multiplying the resulting value by the millage rate [^4]. The number I derived is a lower bound estimate of millage rates throughout Fulton County, multiplied by 0.4. Still, this calculation undercounts even further than the lower bound, as discussed in the following section.
 
 ## Findings
 
