@@ -10,6 +10,7 @@ date: "2024-01-22"
 categories: [code, analysis]
 execute:
   echo: false
+  freeze: true
 format:
     html:
         embed-resources: True
@@ -36,10 +37,14 @@ View the full source code [here](https://github.com/Nicholas-Polimeni/fulton-app
 ## Methods
 
 ### Data Sources
-Appeals data was kindly provided to the Urban Research Group by the Fulton County Tax Assessor's Office. For other parcel characteristics, Tax Parcel data (2022) was downloaded from the publicly available Fulton County GIS Portal[^2]. Fulton County cities boundaries were aquired from the ARC Open Data and Mapping Hub[^3].
+Appeals data was kindly provided to the Urban Research Group by the Fulton County Tax Assessor's Office. For other parcel characteristics, Tax Parcel data (2022) was downloaded from the publicly available Fulton County GIS Portal[^2]. Fulton County city boundaries were aquired from the ARC Open Data and Mapping Hub[^3].
+
+::: {.callout-note}
+All types of parcels are included in this analysis, including, but not limited to, single-family homes, multi-family homes, and commercial properties.
+:::
 
 ### Procedure
-Appeals data was outer joined to tax parcel data on Parcel ID. The resulting dataframe contains all appeals from 2011 to 2022 with their associated parcel data, and parcels that had no appeals over the period. After confirming both the tax parcel and city boundary dataset had an identical coordinate reference system (CRS), the dataframe was spatially (predicate: within) joined the city boundaries. Each parcel now had a column corresponding to its city name.
+Appeals data was outer joined to tax parcel data on Parcel ID. The resulting dataframe contains all appeals from 2011 to 2022 with their associated parcel data, and parcels that had no appeals over the period. After confirming both the tax parcel and city boundary dataset had an identical coordinate reference system (CRS), the dataframe was spatially joined with predicate 'within' on the city boundaries. The result is a new column corresponding the city name name for which each parcel is located.
 
 ::: {.callout-note}
 It is important to note a minor limitation of this approach. Since tax parcel data is limited only to 2022 but appeals start in 2011, some parcels may have changed throughout the study period. 6.3K parcels could not be matched to the 2022 data, resulting in 273K valid parcels. I believe this limitation is negligable. Our main focus is repeat appealers and a parcel which has changed throughout the period cannot be accurately included.
