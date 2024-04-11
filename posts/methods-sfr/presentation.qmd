@@ -1,0 +1,395 @@
+---
+title: Methods to Identify Institutional Investors from Messy Data
+subtitle: _
+author: Nicholas Polimeni
+institute: College of Computing and School of Public Policy, Georgia Institute of Technology
+format:
+  revealjs:
+    chalkboard: true
+toc: true
+toc-depth: 1
+show-slide-number: print
+controls: true
+progress: true
+smaller: true
+link-external-icon: true
+---
+
+# Tradeoffs
+Accuracy, runtime, and technical complexity
+
+## Accuracy
+
+Choice to prioritize:
+
+- Absolute number of matches
+- Percent correct matches
+- Percent true matches vs false matches
+- Some combination of these criteria
+
+In most situations, we want as many matches as possible and most of them need to be correct.
+
+::: {.callout-note appearance="simple"}
+An ideal algorithm should be precise or otherwise invariant to minor changes in data format.
+
+For instance, some data may contain street postfix abbreviations (e.g. "STREET" or "ST") within the owner address whereas others will not.
+:::
+
+## Runtime
+
+For practitioners, waiting days for an algorithm to run is not feasible, but it may be acceptable for researchers.
+
+Access to computational hardware is also a consideration.
+
+_
+
+::: {.callout-note title="Categories for Runtime" appearance="minimal"}
+1. Good algorithms that can be run quickly and easily on any hardware,
+2. Better algorithms that experienced professionals can run if necessary,
+3. Optimal algorithms that may require offsite, vast infrastructure.
+:::
+
+The marginal difference from category 2 to 3 is likely not worth the effort.
+
+
+
+## Technical Complexity
+
+How difficult is it for a practitioner or researcher to reproduce the method?
+
+_
+
+This issue can be prevented with the creation of programmatic tools or applications that facilitate the use of these algorithms.
+
+# Time Complexity
+
+Let us further analyze algorithm efficiency, otherwise known as time and space complexity. This will help us compare potential approaches later.
+
+## Quantifying Algorithmic Runtime
+
+We can categorize algorithms with Big-O notation.
+
+We write time complexity as `O(f(n))` where `f(n)` is an upper bound function for the runtime of the algorithm given input of size `n`.
+
+_
+
+::: {.callout-note appearance="simple"}
+Runtime is not how long an algorithm takes to run on any individual computer, but rather the number of operations in the worst case.
+
+We focus on how quickly the runtime of an algorithm grows with respect to its input size.
+:::
+
+## Common Big-O Functions
+
+![Graph showing the common Big-O notation functions for runtime complexity](big-o.png)
+
+# Time Complexity of String Comparisons
+
+These comparisons are the building blocks of entity resolution algorithms
+
+## Vectorized Comparison (Equals Operator): `O(1)`
+
+This is an exact comparison between two encoded values (in this case, strings). A computer can take two binary encodings from memory and compare them exactly with a single operation.
+
+_
+
+::: {.callout-note title="Example" appearance="minimal"}
+Both `"A" =? "A"` and `"1 MAIN ST" =? "1 MAIN ST"` take approximately the same time to execute, despite longer strings in the second group.
+:::
+
+## Similarity Metrics or Other Iterative Comparisons: `O(n)`
+
+These are metrics that calculate a similarity score based on aspects of two strings. Many string distance metrics calculate the "distance" between corresponding letters in each string. This requires a comparison for each letter in the shortest string.
+
+_
+
+::: {.callout-note title="Example" appearance="minimal"}
+Running Levenshtein Distance, a common string distance metric, on `"A" =? "A"` and `"1 MAIN ST" =? "1 MAIN ST"` takes 1 and 9 operations to execute, respectively.
+:::
+
+# Time Complexity of Entity Resolution Algorithms
+
+## Aggreggate / GroupBy: `O(n)`
+
+These functions utilize the same efficiencies of vectorized comparison by hashing values and placing them into blocks/buckets.
+
+_
+
+::: {.callout-note title="Example (Python Pandas)" appearance="minimal"}
+`data.groupby("owner_address")`
+:::
+
+## Similarity Threshold Grouping: `O(n^2)`
+
+These functions typically compare each string to every other string using a similarity metric, grouping strings that are above a certain threshold.
+
+Runtime may be improved with blocking or concurrency; OpenRefine's clustering function appears to use an optimized implementation.
+
+_
+
+::: {.callout-note title="Example (OpenRefine)" appearance="minimal"}
+Please refer to An et al. 2024
+
+:::
+
+## Time Complexity of ML Algorithms
+
+### K-Nearest Neighbors: `O(n^2)`
+Finds `k` most similar vectors.
+
+### Approximate KNN: `<= O(n)`
+Finds `k` most similar vectors, but trades guarentee of 100% accuracy with speed.
+
+### Deep Learning: `Depends`
+Neural network trained on labeled data.
+
+# Current and Potential Approaches
+
+## Simple Address Key
+
+In *Uncovering Neighborhood-level Portfolios of Corporate Single-Family Rental Holdings and Equity Loss*, our priority was:
+
+- Developing a simple method to accurately quantify ownership scale
+- Keep a narrow focus on research question
+- Have a method that is replicable by pracitioners 
+
+It was not intended to identify specific corporate portfolios, but this is possible with an additional querying method.
+
+## Motivation and Design
+
+Modified version of owner address
+
+- Owner address has lower potential for false positives
+- Owner address is easier to standardize
+- Owner name has more inconsistency amongst subsidiary corporations but many subsidiaries use the same address
+
+Runtime complexity of `O(n)` due to vectorized address key.
+
+## Method Steps
+
+1. Exclude address string postfixes to avoid mismatches (e.g., "STREET" vs. "ST").
+2. Remove periods, commas, and multiple spaces, and convert all characters to uppercase to eliminate inconsistencies.
+3. For PO box addresses, extract numbers from any address string containing at least one number and append them to "PO BOX ".
+4. Concatenate address number, address string (street name or PO Box), and zip code to create an owner address key.
+
+::: {.callout-note title="Table 1. Examples of Owner Address Key Procedure" appearance="minimal"}
+| **Address Number** | **Address String** | **Zip Code** | **Address Key**         |
+|--------------------|--------------------|--------------|-------------------------|
+| 52                 | CREEKSIDE PARK     | 30022        | 52 CREEKSIDE PARK 30022 |
+| NA (filled with 0) | P.O. BOX 370049    | 30037        | 0 PO BOX 370049 30037   |
+| NA (filled with 0) | P O Box 370049     | 30037        | 0 PO BOX 370049 30037   |
+:::
+
+
+## Method Results
+
+::: {.callout-note title="Table 2. Sample of Corporate Owners and Associated Subsidiaries" appearance="minimal"}
+| Owner Address Key                 | Sample of Associated Names                                                  | Common Name                     |
+|-----------------------------------|-----------------------------------------------------------------------------|----------------------------------|
+| 5001 PLAZA ON THE 78746          | ALTO ASSET COMPANY 2 LLC, EPH 2 ASSETS LLC, BAF 1 LLC                       | Amherst Residential              |
+| 1850 PARKWAY 30067                | FKH SFR PROPCO D L P, CERBERUS SFR HOLDINGS LP                              | FirstKey Homes (Cerberus Capital)|
+| PO BOX 4090 85261                 | HOME SFR BORROWER IV LLC, PROGRESS RESIDENTIAL BORROWER 15 LLC              | Progress Residential             |
+| 1717 MAIN 75201                   | 2018 3 IH BORROWER LP, 2018 2 IH BORROWER LP                                | Invitation Homes                 |
+| 591 PUTNAM 6830                   | STAR 2021-SFR2 BORROWER L P, STAR 2021 SFR2 BORROWER LP                     | Colony Starwood Homes            |
+:::
+
+
+## Querying
+Due to the possibility that the same corporation may use multiple addresses, the address key method is not intended to robustly describe the portfolios of specific corporate owners.
+
+However, it can be done with querying.
+
+_
+
+:::{.callout-note title="Querying Steps" appearance="minimal"}
+1. Produce a owner table by aggregating on `address key`
+2. Create a list of substrings associated with the desired owner (for instance, "AMHERST" and "ARVM" for "Amherst").
+3. Identify rows where at least one associated owner name contains the substring
+4. Optional: apply a threshold to avoid small, unrelated owners / individuals
+:::
+
+## Code Example
+
+**Code Example (Python)**
+```{.python code-line-numbers="|1-12|14-25|27-32|34-35"}
+# Keywords to query for each owner
+# For short strings, like "IH" that might accidentally appear,
+# a space is added to reduce this possibility.
+owner_keywords = {
+    "Amherst": ["AMHERST", "ARVM"],
+    "Cerberus": ["CERBERUS", "FKH", "RM1 ", "RMI "],
+    "Progress": ["PROGRESS", "FYR"],
+    "Invitation": ["INVITATION", "IH "],
+    "Colony": ["COLONY", "STARWOOD", "CSH", "CAH "],
+    "Sylvan": ["SYLVAN", "RNTR"],
+    "Tricon": ["TRICON", "TAH"]
+}
+
+# Query for each owner described above
+for owner in owner_keywords:
+    query_str = "|".join(owner_keywords[owner])
+
+    # Find rows for TAXYR 2020 and where at least one associated name
+    # contains a keyword matching the owner
+    owned_by_given_corp = owner_scale[
+        (owner_scale["TAXYR"] == 2020) 
+        & owner_scale["assoc_owner_names"].apply(
+            lambda x: any(((re.search(query_str, name)) for name in x)
+        ))
+    ]
+
+    # Only retain matched subsidiary owners over a threshold,
+    # this is to prevent false positive matches. For instance,
+    # if a single parcel was owned by someone with the last name "SYLVAN"
+    owned_by_given_corp = owned_by_given_corp[
+        owned_by_given_corp["count_owned_fulton_yr"] > 49
+    ]
+    
+    # Sum total over all matched subsidaries
+    total_owned = owned_by_given_corp["count_owned_fulton_yr"].sum()
+```
+
+## Result of Query
+
+::: {.callout-note title="Table 3. SFR Ownership Scale of Top 5 Corporate Landlords in Fulton County in 2020" appearance="minimal"}
+| **Name**             | **Parcels Owned in Fulton (Address Key Query)** | **OpenRefine (OR) method (An et al. 2024)** | **Net Diff.** | **OR method + manual review (An et al. 2024)** | **Net Diff.** |
+|----------------------|--------------------------------------------------|---------------------------------------------|---------------|------------------------------------------------|---------------|
+| Amherst Residential  | 720                                              | 103                                         | +617          | 750                                            | -30           |
+| Invitation Homes     | 677                                              | 524                                         | +153          | 719                                            | -42           |
+| Progress Residential | 619                                              | 457                                         | +159          | 760                                            | -141          |
+| Sylvan Realty (RNTR) | 422                                              | 250                                         | +172          | 433                                            | -11           |
+| Tricon Residential   | 219                                              | 222                                         | -3            | 280                                            | -61           |
+| Cerberus Capital     | 256                                              | 340                                         | -86           | 349                                            | -93           |
+| Starwood Capital     | 122                                              | 361                                         | -239          | 450                                            | -328          |
+:::
+
+
+## Advanced Address Key
+
+Issues with `Simple Address Key`:
+
+- May struggle on differently formatted data. For instance, if address postfixes or suite numbers are included.
+- Other minor inconsistencies that are impossible to clean like spelling or word order.
+
+_
+
+The simplest form of an `Advanced Address Key` extracts and concatentates:
+
+- Address number
+- Suite number
+- Zip code
+- Last two letters of the longest substring in the street address
+
+:::{.callout-note appearance="simple"}
+These features are almost always invariant to changes in spelling, word order, street postfixes, or other inconsistencies.
+:::
+
+## Advanced Address Key Example
+
+::: {.callout-note title="Table 4. Example Advanced Address Key Matching" appearance="minimal"}
+| Address 1                  | Zip 1 | ADDR KEY 1        | Address 2                     | Zip 2 | ADDR KEY 2        | Matched? |
+|----------------------------|-------|-------------------|-------------------------------|-------|-------------------|----------|
+| PO BOX 490734              | 30363 | 490734-0-OX30363  | P O. BOX 490734               | 30363 | 490734-0-OX30363  | Yes      |
+| 3505 KOGER BLVD 400        | 30315 | 3505-400-ER30315  | 3505 KOGER BLVD., SUITE 400   | 30315 | 3505-400-ER30315  | Yes      |
+| One Buckhead PL STE 300    | 30305 | 1-300-AD-30305    | One Buckhead PL STE 325       | 30303 | 1-325-AD-30305    | No       |
+| 5 PEACHTREE ST             | 30308 | 5-0-30308         | 5 PEACHTREE ST                | 30354 | 5-0-30354         | No       |
+:::
+
+# Potential Improvements
+
+## Business Registry Data
+
+:::{.callout-warning appearance="simple"}
+Not included by default since this data may vary by state or be inaccessable.
+:::
+
+- If available, could aggregate same-owners that use multiple addresses with name matching.
+- Matching owner names to business names has the same challenges of spelling and naming inconsistencies.
+- Ideal case is that the registry contains owner, or beneficial, corporations and their addresses. This could aggregate subsidiary addresses and names at the state level.
+
+Regardless, considering data inconsistency, matching even good data from business registry records to parcel or sales records requires the use of fuzzy matching algorithms discussed here.
+
+## Crowdsourcing Rental Registries
+
+Using an address key querying approach, we've demonstrated that how to construct a list of owners associated with a business address.
+
+_
+
+If researchers complete this step within their own metro areas, we can combine this data to create a robust, crowdsourced ownership database.
+
+This database may consist of two tables, one linking address keys to an owner index, and another linking owner indexes to all associated corporate names.
+
+## Example Database Schema
+
+::: {.callout-note title="Table 5. Example Schema of Ownership Database (Addresses)" appearance="minimal"}
+| Address Key | Owner Index |
+| --- | --- |
+| 5001 PLAZA ON THE 78746 | 1 |
+| 9800 HILLWOOD 76177 | 2 |
+| 1850 PARKWAY 30067 | 2 |
+:::
+
+::: {.callout-note title="Table 6. Example Schema of Ownership Database (Associated Names)" appearance="minimal"}
+| Owner Index | Associated Names | Common Name |
+| ---- | --- | ---- |
+| 1 | ALTO ASSET COMPANY 2 LLC, EPH 2 ASSETS LLC, BAF 1 LLC | Amherst Residential |
+| 2 | FKH SFR PROPCO D L P, CERBERUS SFR HOLDINGS LP | FirstKey Homes |
+:::
+
+Appendix C of Polimeni and An 2024 contains this data for Fulton County, GA.
+
+# Drawbacks of String Similiarity and ML
+
+## String Similarity
+
+- Generally inefficient
+- Potentially difficult to use or understand
+- Prone to false positives
+
+For instance, “2018 3 IH BORROWER LP” and “HOME SFR BORROWER IV LLC” have many letters in common, but they are different entities.
+
+## ML Approaches
+
+### Clustering
+
+Clustering requires that the data can be vectorized. We can encode owner names string into vectors using a string embedding model. However, these models are generally intended to encode semantic meaning. They are not useful for identifying strings that look similar.
+
+### Deep Learning
+
+Deep learning requires a correct, labeled dataset to train on. This takes additional effort to create. Furthermore, there are many instances of subsidiary corporations with no discernable pattern.
+
+# Conclusions
+
+## Is This a Solvable Problem?
+
+Ultimately, the problem is solvable from a computational perspective (there exists a polynomial time algorithm), but it is **not perfectly solvable** from a data perspective.
+
+**An impossible problem:** when owner names and owner addresses are different but they represent the same corporation.
+
+For instance, how is it possible that any algorithm or model can correctly classify “Jeff 1 LLC” as a subsidiary of Amherst Capital if the owner address is different?
+
+There are no string distance metrics that will resolve this issue and no discernable pattern for deep learning.
+
+## What is the Best Solution?
+
+It is not worth the time to aim for a perfect solution.
+
+_
+
+The best solution is likely an optimized fuzzy address key, coupled with additional data steps to aggregate specific portfolios.
+
+This solution finds an ideal balance between accuracy, runtime, and implementation complexity. Additionally, it generally avoids false positives, which is ideal for most purposes.
+
+## A Methods Paper to Reduce These Challenges
+
+To reduce the burden on researchers and increase the speed at which the impact of SFR investment can be studied, a methods paper should concretely compare all current methods.
+
+:::{.callout-note title="The goal of this speculative project is to produce:" appearance="minimal"}
+- A sample of labeled data (ground truth) across multiple metro areas to train and/or test models against. This is related to the data crowdsourcing mentioned previously.
+- A paper comparing all (and potential) methods, highlighting the tradeoffs for each, and which methods are best for under specific circumstances.
+- Optimized coding tools or an application to facilitate the best procedures.
+:::
+
+# Questions?
+
+More information at: [nicholaspolimeni.com/posts/methods-sfr/](nicholaspolimeni.com/posts/methods-sfr/)

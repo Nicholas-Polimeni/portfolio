@@ -64,14 +64,14 @@ Technical complexity is often related to algorithmic efficiency; however, some f
 
 This issue can be resolved with the creation of programmatic tools or applications that facilitate the use of these algorithms.
 
-# Time Complexity
-Let us further analyze algorithm efficiency, otherwise known as time and space complexity.
+# Theoretical Foundations: Time Complexity
+Let us further analyze algorithm efficiency, otherwise known as time and space complexity. This will help us compare potential approaches later.
 
 We are generally more concerned with time complexity. It is relatively cheap to buy RAM but impossible to buy time.
 
 We can categorize algorithms with Big-O notation; we write time complexity as `O(f(n))`, where `f(n)` is an upper bound function for the runtime of the algorithm given input of size `n`.
 
-Runtime does not mean how long an algorithm takes to run on any individual computer, but rather the number of operations in the worst case. We focus on how quickly the runtime of an algorithm grows with respect to its input size.
+Runtime is not how long an algorithm takes to run on any individual computer, but rather the number of operations in the worst case. We focus on how quickly the runtime of an algorithm grows with respect to its input size.
  
 
 ![Graph showing the common Big-O notation functions for runtime complexity [@big-o].](big-o.png)
@@ -143,7 +143,7 @@ This is a modified form of K-Nearest Neighbors that trades perfect accuracy for 
 
 ![Visualization of subspaces in ANN [@ann]](ann.png)
 
-### Deep Learning (Classification, Supervised): `O(n^n)`*
+### Deep Learning (Classification, Supervised):
 
 Deep learning uses a series of subsequent layers to transform data into a final layer (categories). Within each layer, there are nodes which each contain a separate activation function. The model is trained by feeding input data and comparing its output to the desired output; the nodes are modified with each data point to optimize the result.
 
@@ -197,10 +197,12 @@ Due to the possibility that the same corporation may use multiple addresses, the
 
 **Steps**
 
-1. Produce an aggregated owner table by aggregating on `address key`
+1. Produce a owner table by aggregating on `address key`
 2. Create a list of substrings associated with the desired owner (for instance, "AMHERST" and "ARVM" for "Amherst").
 3. Identify rows where at least one associated owner name contains the substring
-4. Optional: apply a threshold
+4. Optional: apply a threshold to avoid small, unrelated owners / individuals
+
+*A threshold may help prevent accidental matches. For instance, if a query produces three owners each with over 50 properties owned, and another with only one property owned, it is likely the latter is not associated with the former.
 
 ::: {.callout-note}
 In the case that a complete list of substrings for each owner is not known, it is possible to begin querying with the base name or other substrings that are known. From this result, add more potential substrings.
@@ -314,7 +316,7 @@ If researchers complete this step within their own metro areas, we can combine t
 | 2 | FKH SFR PROPCO D L P, CERBERUS SFR HOLDINGS LP | FirstKey Homes |
 :::
 
-Appendix C of my paper (Polimeni and An 2024) contains this data for Fulton County, GA.
+Appendix C of [@jua] contains this data for Fulton County, GA.
 :::
 
 ## String Similarity Metrics
@@ -347,15 +349,19 @@ Deep learning requires a correct, labeled dataset to train on. This takes additi
 
 Deep learning is also likely not a solution.
 
-# Is This a Solvable Problem? If Not, What Is the Best Solution?
+# Is This a Solvable Problem? If Not, What is the Best Solution?
 
 Ultimately, the problem is solvable from a computational perspective (there exists a polynomial time algorithm), but it is **not perfectly solvable** from a data perspective.
 
 The challenge comes from cases where both the owner names and addresses are different but they represent the same owner. For instance, how is it possible that any algorithm or model can correctly classify "Jeff 1 LLC" as a subsidiary of Amherst Capital if the owner address is different? 
 
-Alternatively, how can an algorithm distinguish "HOME BORROWER I LLC" from "HOME SFR BORROWER LLC" if these are owned by different corporations? Or, if they are owned by the same corporation, but use different addresses, we run into the same issue. There are no string distance metrics that will resolve this issue and no discernable pattern for deep learning.
+Alternatively, how can an algorithm distinguish "HOME BORROWER I LLC" from "HOME SFR BORROWER LLC" if these are owned by different corporations? Or, if they are owned by the same corporation, but use different addresses, we run into the same issue.
 
-Without rental registries, or some other complete ground truth, I argue that there is not a possible perfect algorithm. It may not even be worth the time to aim for this. The best solution is likely an optimized fuzzy address key, coupled with additional data steps to aggregate specific portfolios. This solution finds an ideal balance between accuracy, runtime, and implementation complexity. Additionally, it generally avoids false positives, which is ideal for most purposes.
+![Table of all ownership possibilities [@acsp]](possibilities.png)
+
+If we list out all possible combinations, we see that some are difficult or impossible to capture. There are no string distance metrics that will resolve this issue and no discernable pattern for deep learning.
+
+Without rental registries, or some other complete ground truth, I argue that a perfect algorithm is not possible. It may not even be worth the time to aim for this. The best solution is likely an optimized fuzzy address key, coupled with additional data steps to aggregate specific portfolios. This solution finds an ideal balance between accuracy, runtime, and implementation complexity. Additionally, it generally avoids false positives, which is ideal for most purposes.
 
 # A Methods Paper to Reduce These Challenges
 
