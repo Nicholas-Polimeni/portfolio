@@ -60,7 +60,7 @@ It is unlikely that the marginal improvement from category 2 to 3 is worth the a
 
 
 ## Technical and Implementation Complexity
-Technical complexity is often related to algorithmic effieciency; however, some fast algorithms might be very difficult to implement. For instance, concurrent processing may make an algorithm fast enough for pacticioners to use, but they cannot be expected to implement this themselves.
+Technical complexity is often related to algorithmic efficiency; however, some fast algorithms might be very difficult to implement. For instance, concurrent processing may make an algorithm fast enough for practitioners to use, but they cannot be expected to implement this themselves.
 
 This issue can be resolved with the creation of programmatic tools or applications that facilitate the use of these algorithms.
 
@@ -165,7 +165,7 @@ In my paper with Brian An, *Uncovering Neighborhood-level Portfolios of Corporat
 
 > We rely on a modified version of the owner address to group the same-owners together. Owner address has a lower potential for false positive matches than owner name while also being easier to standardize and correctly match. Moreover, owner name has greater potential for inconsistency between subsidiary corporations, but many subsidiary or shell SFR corporations use the same address. In this way, we account for many cases of nested ownership structure, where different holding corporations may own properties, but report the same business address for records purposes. We favor this approach as it narrows focus to our research question without opaque or complex methodological underpinnings.
 
-In particular, by using an encodable key for each address, this method takes advantage of vectorized comparison. Therefore, it can use an aggreggate or groupby operation for a runtime complexity of `O(n)`.
+In particular, by using an encodable key for each address, this method takes advantage of vectorized comparison. Therefore, it can use an aggregate or groupby operation for a runtime complexity of `O(n)`.
 
 **Method Details**
 
@@ -321,7 +321,7 @@ Appendix C of my paper (Polimeni and An 2024) contains this data for Fulton Coun
 
 While key methods are ideal for applications that require fast computation or lack computational power, some use of string similarity metrics may be advantageous for those with the capability.
 
-The use of string similarity metrics becomes more useful for ambiguous cases, or for grouping owners with similar  names but different addresses. The efficiency may also be increased by blocking; for instance, by using a vectorized aggregation to create buckets of owners with at least one matching word substring; doing so reduces the number of necessary comparisons exponentially.
+The use of string similarity metrics becomes more useful for ambiguous cases, or for grouping owners with similar names but different addresses. The efficiency may also be increased by blocking; for instance, by using a vectorized aggregation to create buckets of owners with at least one matching word substring; doing so reduces the number of necessary comparisons exponentially.
 
 However, most string distance metrics are not optimized for address strings or corporate owner names. They are typically best for spelling inconsistencies. Therefore, developing a string distance metric optimized for corporate names has potential.
 
