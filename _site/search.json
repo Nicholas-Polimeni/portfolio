@@ -523,5 +523,194 @@
     "title": "Methods to Identify Institutional Investors from Messy Data",
     "section": "",
     "text": "Accuracy, runtime, and technical complexity\n\n\nChoice to prioritize:\n\nAbsolute number of matches\nPercent correct matches\nPercent true matches vs false matches\nSome combination of these criteria\n\nIn most situations, we want as many matches as possible and most of them need to be correct.\n\n\n\n\n\n\nAn ideal algorithm should be precise or otherwise invariant to minor changes in data format.\nFor instance, some data may contain street postfix abbreviations (e.g. “STREET” or “ST”) within the owner address whereas others will not.\n\n\n\n\n\n\nFor practitioners, waiting days for an algorithm to run is not feasible, but it may be acceptable for researchers.\nAccess to computational hardware is also a consideration.\n_\n\n\n\n\n\n\nCategories for Runtime\n\n\n\n\nGood algorithms that can be run quickly and easily on any hardware,\nBetter algorithms that experienced professionals can run if necessary,\nOptimal algorithms that may require offsite, vast infrastructure.\n\n\n\nThe marginal difference from category 2 to 3 is likely not worth the effort.\n\n\n\nHow difficult is it for a practitioner or researcher to reproduce the method?\n_\nThis issue can be prevented with the creation of programmatic tools or applications that facilitate the use of these algorithms."
+  },
+  {
+    "objectID": "resources/presentation.html#accuracy",
+    "href": "resources/presentation.html#accuracy",
+    "title": "Methods to Identify Institutional Investors from Messy Data",
+    "section": "Accuracy",
+    "text": "Accuracy\nChoice to prioritize:\n\nAbsolute number of matches\nPercent correct matches\nPercent true matches vs false matches\nSome combination of these criteria\n\nIn most situations, we want as many matches as possible and most of them need to be correct.\n\n\n\n\n\n\nAn ideal algorithm should be precise or otherwise invariant to minor changes in data format.\nFor instance, some data may contain street postfix abbreviations (e.g. “STREET” or “ST”) within the owner address whereas others will not."
+  },
+  {
+    "objectID": "resources/presentation.html#runtime",
+    "href": "resources/presentation.html#runtime",
+    "title": "Methods to Identify Institutional Investors from Messy Data",
+    "section": "Runtime",
+    "text": "Runtime\nFor practitioners, waiting days for an algorithm to run is not feasible, but it may be acceptable for researchers.\nAccess to computational hardware is also a consideration.\n_\n\n\n\n\nCategories for Runtime\n\n\n\nGood algorithms that can be run quickly and easily on any hardware,\nBetter algorithms that experienced professionals can run if necessary,\nOptimal algorithms that may require offsite, vast infrastructure.\n\n\n\n\n\nThe marginal difference from category 2 to 3 is likely not worth the effort."
+  },
+  {
+    "objectID": "resources/presentation.html#technical-complexity",
+    "href": "resources/presentation.html#technical-complexity",
+    "title": "Methods to Identify Institutional Investors from Messy Data",
+    "section": "Technical Complexity",
+    "text": "Technical Complexity\nHow difficult is it for a practitioner or researcher to reproduce the method?\n_\nThis issue can be prevented with the creation of programmatic tools or applications that facilitate the use of these algorithms."
+  },
+  {
+    "objectID": "resources/presentation.html#quantifying-algorithmic-runtime",
+    "href": "resources/presentation.html#quantifying-algorithmic-runtime",
+    "title": "Methods to Identify Institutional Investors from Messy Data",
+    "section": "Quantifying Algorithmic Runtime",
+    "text": "Quantifying Algorithmic Runtime\nWe can categorize algorithms with Big-O notation.\nWe write time complexity as O(f(n)) where f(n) is an upper bound function for the runtime of the algorithm given input of size n.\n_\n\n\n\n\n\n\nRuntime is not how long an algorithm takes to run on any individual computer, but rather the number of operations in the worst case.\nWe focus on how quickly the runtime of an algorithm grows with respect to its input size."
+  },
+  {
+    "objectID": "resources/presentation.html#common-big-o-functions",
+    "href": "resources/presentation.html#common-big-o-functions",
+    "title": "Methods to Identify Institutional Investors from Messy Data",
+    "section": "Common Big-O Functions",
+    "text": "Common Big-O Functions\n\nGraph showing the common Big-O notation functions for runtime complexity"
+  },
+  {
+    "objectID": "resources/presentation.html#vectorized-comparison-equals-operator-o1",
+    "href": "resources/presentation.html#vectorized-comparison-equals-operator-o1",
+    "title": "Methods to Identify Institutional Investors from Messy Data",
+    "section": "Vectorized Comparison (Equals Operator): O(1)",
+    "text": "Vectorized Comparison (Equals Operator): O(1)\nThis is an exact comparison between two encoded values (in this case, strings). A computer can take two binary encodings from memory and compare them exactly with a single operation.\n_\n\n\n\n\nExample\n\n\nBoth \"A\" =? \"A\" and \"1 MAIN ST\" =? \"1 MAIN ST\" take approximately the same time to execute, despite longer strings in the second group."
+  },
+  {
+    "objectID": "resources/presentation.html#similarity-metrics-or-other-iterative-comparisons-on",
+    "href": "resources/presentation.html#similarity-metrics-or-other-iterative-comparisons-on",
+    "title": "Methods to Identify Institutional Investors from Messy Data",
+    "section": "Similarity Metrics or Other Iterative Comparisons: O(n)",
+    "text": "Similarity Metrics or Other Iterative Comparisons: O(n)\nThese are metrics that calculate a similarity score based on aspects of two strings. Many string distance metrics calculate the “distance” between corresponding letters in each string. This requires a comparison for each letter in the shortest string.\n_\n\n\n\n\nExample\n\n\nRunning Levenshtein Distance, a common string distance metric, on \"A\" =? \"A\" and \"1 MAIN ST\" =? \"1 MAIN ST\" takes 1 and 9 operations to execute, respectively."
+  },
+  {
+    "objectID": "resources/presentation.html#aggreggate-groupby-on",
+    "href": "resources/presentation.html#aggreggate-groupby-on",
+    "title": "Methods to Identify Institutional Investors from Messy Data",
+    "section": "Aggreggate / GroupBy: O(n)",
+    "text": "Aggreggate / GroupBy: O(n)\nThese functions utilize the same efficiencies of vectorized comparison by hashing values and placing them into blocks/buckets.\n_\n\n\n\n\nExample (Python Pandas)\n\n\ndata.groupby(\"owner_address\")"
+  },
+  {
+    "objectID": "resources/presentation.html#similarity-threshold-grouping-on2",
+    "href": "resources/presentation.html#similarity-threshold-grouping-on2",
+    "title": "Methods to Identify Institutional Investors from Messy Data",
+    "section": "Similarity Threshold Grouping: O(n^2)",
+    "text": "Similarity Threshold Grouping: O(n^2)\nThese functions typically compare each string to every other string using a similarity metric, grouping strings that are above a certain threshold.\nRuntime may be improved with blocking or concurrency; OpenRefine’s clustering function appears to use an optimized implementation.\n_\n\n\n\n\nExample (OpenRefine)\n\n\nPlease refer to An et al. 2024"
+  },
+  {
+    "objectID": "resources/presentation.html#time-complexity-of-ml-algorithms",
+    "href": "resources/presentation.html#time-complexity-of-ml-algorithms",
+    "title": "Methods to Identify Institutional Investors from Messy Data",
+    "section": "Time Complexity of ML Algorithms",
+    "text": "Time Complexity of ML Algorithms\nK-Nearest Neighbors: O(n^2)\nFinds k most similar vectors.\nApproximate KNN: &lt;= O(n)\nFinds k most similar vectors, but trades guarentee of 100% accuracy with speed.\nDeep Learning: Depends\nNeural network trained on labeled data."
+  },
+  {
+    "objectID": "resources/presentation.html#simple-address-key",
+    "href": "resources/presentation.html#simple-address-key",
+    "title": "Methods to Identify Institutional Investors from Messy Data",
+    "section": "Simple Address Key",
+    "text": "Simple Address Key\nIn Uncovering Neighborhood-level Portfolios of Corporate Single-Family Rental Holdings and Equity Loss, our priority was:\n\nDeveloping a simple method to accurately quantify ownership scale\nKeep a narrow focus on research question\nHave a method that is replicable by pracitioners\n\nIt was not intended to identify specific corporate portfolios, but this is possible with an additional querying method."
+  },
+  {
+    "objectID": "resources/presentation.html#motivation-and-design",
+    "href": "resources/presentation.html#motivation-and-design",
+    "title": "Methods to Identify Institutional Investors from Messy Data",
+    "section": "Motivation and Design",
+    "text": "Motivation and Design\nModified version of owner address\n\nOwner address has lower potential for false positives\nOwner address is easier to standardize\nOwner name has more inconsistency amongst subsidiary corporations but many subsidiaries use the same address\n\nRuntime complexity of O(n) due to vectorized address key."
+  },
+  {
+    "objectID": "resources/presentation.html#method-steps",
+    "href": "resources/presentation.html#method-steps",
+    "title": "Methods to Identify Institutional Investors from Messy Data",
+    "section": "Method Steps",
+    "text": "Method Steps\n\nExclude address string postfixes to avoid mismatches (e.g., “STREET” vs. “ST”).\nRemove periods, commas, and multiple spaces, and convert all characters to uppercase to eliminate inconsistencies.\nFor PO box addresses, extract numbers from any address string containing at least one number and append them to “PO BOX”.\nConcatenate address number, address string (street name or PO Box), and zip code to create an owner address key.\n\n\n\n\n\nTable 1. Examples of Owner Address Key Procedure\n\n\n\n\n\n\n\n\n\n\n\nAddress Number\nAddress String\nZip Code\nAddress Key\n\n\n\n\n52\nCREEKSIDE PARK\n30022\n52 CREEKSIDE PARK 30022\n\n\nNA (filled with 0)\nP.O. BOX 370049\n30037\n0 PO BOX 370049 30037\n\n\nNA (filled with 0)\nP O Box 370049\n30037\n0 PO BOX 370049 30037"
+  },
+  {
+    "objectID": "resources/presentation.html#method-results",
+    "href": "resources/presentation.html#method-results",
+    "title": "Methods to Identify Institutional Investors from Messy Data",
+    "section": "Method Results",
+    "text": "Method Results\n\n\n\n\nTable 2. Sample of Corporate Owners and Associated Subsidiaries\n\n\n\n\n\n\n\n\n\n\nOwner Address Key\nSample of Associated Names\nCommon Name\n\n\n\n\n5001 PLAZA ON THE 78746\nALTO ASSET COMPANY 2 LLC, EPH 2 ASSETS LLC, BAF 1 LLC\nAmherst Residential\n\n\n1850 PARKWAY 30067\nFKH SFR PROPCO D L P, CERBERUS SFR HOLDINGS LP\nFirstKey Homes (Cerberus Capital)\n\n\nPO BOX 4090 85261\nHOME SFR BORROWER IV LLC, PROGRESS RESIDENTIAL BORROWER 15 LLC\nProgress Residential\n\n\n1717 MAIN 75201\n2018 3 IH BORROWER LP, 2018 2 IH BORROWER LP\nInvitation Homes\n\n\n591 PUTNAM 6830\nSTAR 2021-SFR2 BORROWER L P, STAR 2021 SFR2 BORROWER LP\nColony Starwood Homes"
+  },
+  {
+    "objectID": "resources/presentation.html#querying",
+    "href": "resources/presentation.html#querying",
+    "title": "Methods to Identify Institutional Investors from Messy Data",
+    "section": "Querying",
+    "text": "Querying\nDue to the possibility that the same corporation may use multiple addresses, the address key method is not intended to robustly describe the portfolios of specific corporate owners.\nHowever, it can be done with querying.\n_\n\n\n\n\nQuerying Steps\n\n\n\nProduce a owner table by aggregating on address key\nCreate a list of substrings associated with the desired owner (for instance, “AMHERST” and “ARVM” for “Amherst”).\nIdentify rows where at least one associated owner name contains the substring\nOptional: apply a threshold to avoid small, unrelated owners / individuals"
+  },
+  {
+    "objectID": "resources/presentation.html#code-example",
+    "href": "resources/presentation.html#code-example",
+    "title": "Methods to Identify Institutional Investors from Messy Data",
+    "section": "Code Example",
+    "text": "Code Example\nCode Example (Python)\n# Keywords to query for each owner\n# For short strings, like \"IH\" that might accidentally appear,\n# a space is added to reduce this possibility.\nowner_keywords = {\n    \"Amherst\": [\"AMHERST\", \"ARVM\"],\n    \"Cerberus\": [\"CERBERUS\", \"FKH\", \"RM1 \", \"RMI \"],\n    \"Progress\": [\"PROGRESS\", \"FYR\"],\n    \"Invitation\": [\"INVITATION\", \"IH \"],\n    \"Colony\": [\"COLONY\", \"STARWOOD\", \"CSH\", \"CAH \"],\n    \"Sylvan\": [\"SYLVAN\", \"RNTR\"],\n    \"Tricon\": [\"TRICON\", \"TAH\"]\n}\n\n# Query for each owner described above\nfor owner in owner_keywords:\n    query_str = \"|\".join(owner_keywords[owner])\n\n    # Find rows for TAXYR 2020 and where at least one associated name\n    # contains a keyword matching the owner\n    owned_by_given_corp = owner_scale[\n        (owner_scale[\"TAXYR\"] == 2020) \n        & owner_scale[\"assoc_owner_names\"].apply(\n            lambda x: any(((re.search(query_str, name)) for name in x)\n        ))\n    ]\n\n    # Only retain matched subsidiary owners over a threshold,\n    # this is to prevent false positive matches. For instance,\n    # if a single parcel was owned by someone with the last name \"SYLVAN\"\n    owned_by_given_corp = owned_by_given_corp[\n        owned_by_given_corp[\"count_owned_fulton_yr\"] &gt; 49\n    ]\n    \n    # Sum total over all matched subsidaries\n    total_owned = owned_by_given_corp[\"count_owned_fulton_yr\"].sum()"
+  },
+  {
+    "objectID": "resources/presentation.html#result-of-query",
+    "href": "resources/presentation.html#result-of-query",
+    "title": "Methods to Identify Institutional Investors from Messy Data",
+    "section": "Result of Query",
+    "text": "Result of Query\n\n\n\n\nTable 3. SFR Ownership Scale of Top 5 Corporate Landlords in Fulton County in 2020\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nParcels Owned in Fulton (Address Key Query)\nOpenRefine (OR) method (An et al. 2024)\nNet Diff.\nOR method + manual review (An et al. 2024)\nNet Diff.\n\n\n\n\nAmherst Residential\n720\n103\n+617\n750\n-30\n\n\nInvitation Homes\n677\n524\n+153\n719\n-42\n\n\nProgress Residential\n619\n457\n+159\n760\n-141\n\n\nSylvan Realty (RNTR)\n422\n250\n+172\n433\n-11\n\n\nTricon Residential\n219\n222\n-3\n280\n-61\n\n\nCerberus Capital\n256\n340\n-86\n349\n-93\n\n\nStarwood Capital\n122\n361\n-239\n450\n-328"
+  },
+  {
+    "objectID": "resources/presentation.html#advanced-address-key",
+    "href": "resources/presentation.html#advanced-address-key",
+    "title": "Methods to Identify Institutional Investors from Messy Data",
+    "section": "Advanced Address Key",
+    "text": "Advanced Address Key\nIssues with Simple Address Key:\n\nMay struggle on differently formatted data. For instance, if address postfixes or suite numbers are included.\nOther minor inconsistencies that are impossible to clean like spelling or word order.\n\n_\nThe simplest form of an Advanced Address Key extracts and concatentates:\n\nAddress number\nSuite number\nZip code\nLast two letters of the longest substring in the street address\n\n\n\n\n\n\n\nThese features are almost always invariant to changes in spelling, word order, street postfixes, or other inconsistencies."
+  },
+  {
+    "objectID": "resources/presentation.html#advanced-address-key-example",
+    "href": "resources/presentation.html#advanced-address-key-example",
+    "title": "Methods to Identify Institutional Investors from Messy Data",
+    "section": "Advanced Address Key Example",
+    "text": "Advanced Address Key Example\n\n\n\n\nTable 4. Example Advanced Address Key Matching\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAddress 1\nZip 1\nADDR KEY 1\nAddress 2\nZip 2\nADDR KEY 2\nMatched?\n\n\n\n\nPO BOX 490734\n30363\n490734-0-OX30363\nP O. BOX 490734\n30363\n490734-0-OX30363\nYes\n\n\n3505 KOGER BLVD 400\n30315\n3505-400-ER30315\n3505 KOGER BLVD., SUITE 400\n30315\n3505-400-ER30315\nYes\n\n\nOne Buckhead PL STE 300\n30305\n1-300-AD-30305\nOne Buckhead PL STE 325\n30303\n1-325-AD-30305\nNo\n\n\n5 PEACHTREE ST\n30308\n5-0-30308\n5 PEACHTREE ST\n30354\n5-0-30354\nNo"
+  },
+  {
+    "objectID": "resources/presentation.html#business-registry-data",
+    "href": "resources/presentation.html#business-registry-data",
+    "title": "Methods to Identify Institutional Investors from Messy Data",
+    "section": "Business Registry Data",
+    "text": "Business Registry Data\n\n\n\n\n\n\nNot included by default since this data may vary by state or be inaccessable.\n\n\n\n\nIf available, could aggregate same-owners that use multiple addresses with name matching.\nMatching owner names to business names has the same challenges of spelling and naming inconsistencies.\nIdeal case is that the registry contains owner, or beneficial, corporations and their addresses. This could aggregate subsidiary addresses and names at the state level.\n\nRegardless, considering data inconsistency, matching even good data from business registry records to parcel or sales records requires the use of fuzzy matching algorithms discussed here."
+  },
+  {
+    "objectID": "resources/presentation.html#crowdsourcing-rental-registries",
+    "href": "resources/presentation.html#crowdsourcing-rental-registries",
+    "title": "Methods to Identify Institutional Investors from Messy Data",
+    "section": "Crowdsourcing Rental Registries",
+    "text": "Crowdsourcing Rental Registries\nUsing an address key querying approach, we’ve demonstrated that how to construct a list of owners associated with a business address.\n_\nIf researchers complete this step within their own metro areas, we can combine this data to create a robust, crowdsourced ownership database.\nThis database may consist of two tables, one linking address keys to an owner index, and another linking owner indexes to all associated corporate names."
+  },
+  {
+    "objectID": "resources/presentation.html#example-database-schema",
+    "href": "resources/presentation.html#example-database-schema",
+    "title": "Methods to Identify Institutional Investors from Messy Data",
+    "section": "Example Database Schema",
+    "text": "Example Database Schema\n\n\n\n\nTable 5. Example Schema of Ownership Database (Addresses)\n\n\n\n\n\nAddress Key\nOwner Index\n\n\n\n\n5001 PLAZA ON THE 78746\n1\n\n\n9800 HILLWOOD 76177\n2\n\n\n1850 PARKWAY 30067\n2\n\n\n\n\n\n\n\n\n\n\n\nTable 6. Example Schema of Ownership Database (Associated Names)\n\n\n\n\n\n\n\n\n\n\nOwner Index\nAssociated Names\nCommon Name\n\n\n\n\n1\nALTO ASSET COMPANY 2 LLC, EPH 2 ASSETS LLC, BAF 1 LLC\nAmherst Residential\n\n\n2\nFKH SFR PROPCO D L P, CERBERUS SFR HOLDINGS LP\nFirstKey Homes\n\n\n\n\n\n\n\nAppendix C of Polimeni and An 2024 contains this data for Fulton County, GA."
+  },
+  {
+    "objectID": "resources/presentation.html#string-similarity",
+    "href": "resources/presentation.html#string-similarity",
+    "title": "Methods to Identify Institutional Investors from Messy Data",
+    "section": "String Similarity",
+    "text": "String Similarity\n\nGenerally inefficient\nPotentially difficult to use or understand\nProne to false positives\n\nFor instance, “2018 3 IH BORROWER LP” and “HOME SFR BORROWER IV LLC” have many letters in common, but they are different entities."
+  },
+  {
+    "objectID": "resources/presentation.html#ml-approaches",
+    "href": "resources/presentation.html#ml-approaches",
+    "title": "Methods to Identify Institutional Investors from Messy Data",
+    "section": "ML Approaches",
+    "text": "ML Approaches\nClustering\nClustering requires that the data can be vectorized. We can encode owner names string into vectors using a string embedding model. However, these models are generally intended to encode semantic meaning. They are not useful for identifying strings that look similar.\nDeep Learning\nDeep learning requires a correct, labeled dataset to train on. This takes additional effort to create. Furthermore, there are many instances of subsidiary corporations with no discernable pattern."
+  },
+  {
+    "objectID": "resources/presentation.html#is-this-a-solvable-problem",
+    "href": "resources/presentation.html#is-this-a-solvable-problem",
+    "title": "Methods to Identify Institutional Investors from Messy Data",
+    "section": "Is This a Solvable Problem?",
+    "text": "Is This a Solvable Problem?\nUltimately, the problem is solvable from a computational perspective (there exists a polynomial time algorithm), but it is not perfectly solvable from a data perspective.\nAn impossible problem: when owner names and owner addresses are different but they represent the same corporation.\nFor instance, how is it possible that any algorithm or model can correctly classify “Jeff 1 LLC” as a subsidiary of Amherst Capital if the owner address is different?\nThere are no string distance metrics that will resolve this issue and no discernable pattern for deep learning."
+  },
+  {
+    "objectID": "resources/presentation.html#what-is-the-best-solution",
+    "href": "resources/presentation.html#what-is-the-best-solution",
+    "title": "Methods to Identify Institutional Investors from Messy Data",
+    "section": "What is the Best Solution?",
+    "text": "What is the Best Solution?\nIt is not worth the time to aim for a perfect solution.\n_\nThe best solution is likely an optimized fuzzy address key, coupled with additional data steps to aggregate specific portfolios.\nThis solution finds an ideal balance between accuracy, runtime, and implementation complexity. Additionally, it generally avoids false positives, which is ideal for most purposes."
+  },
+  {
+    "objectID": "resources/presentation.html#a-methods-paper-to-reduce-these-challenges",
+    "href": "resources/presentation.html#a-methods-paper-to-reduce-these-challenges",
+    "title": "Methods to Identify Institutional Investors from Messy Data",
+    "section": "A Methods Paper to Reduce These Challenges",
+    "text": "A Methods Paper to Reduce These Challenges\nTo reduce the burden on researchers and increase the speed at which the impact of SFR investment can be studied, a methods paper should concretely compare all current methods.\n\n\n\n\nThe goal of this speculative project is to produce:\n\n\n\nA sample of labeled data (ground truth) across multiple metro areas to train and/or test models against. This is related to the data crowdsourcing mentioned previously.\nA paper comparing all (and potential) methods, highlighting the tradeoffs for each, and which methods are best for under specific circumstances.\nOptimized coding tools or an application to facilitate the best procedures."
   }
 ]
