@@ -29,26 +29,26 @@ Will add after session
 A need for accessible and robust methods to identify institutional investors, especially single-family rental (SFR) investors, motivates this discussion. Considering the lack of rental registries in the United States, researchers must bear significant technical burdens in identifying these investors from messy parcel and sales records. The challenges include, but are not limited to: inconsistent naming, corporations with multiple business addresses, and difficulty in acquiring data, especially historical data.
 
 ::: {.callout-note}
-I refer to algorithms that identify institutional investors as entity resolution (fuzzy matching) or clustering algorithms, depending on which I am referring to. I use these terms to reflect the general desire to group same-owners (such as subsidary corporations) together within data, even if the exact definition of these algorithms differ. Classification algorithms may also be relevant, but we generally do not have a complete list of investors to supervise learning. I discuss machine learning (clustering, classification, and deep learning) algorithms in more detail later.
+I refer to algorithms that identify institutional investors as entity resolution (fuzzy matching) or clustering algorithms, depending on which I am referring to. I use these terms to reflect the general desire to group same-owners (such as subsidiary corporations) within the data, even if the exact definitions of these algorithms differ. Classification algorithms may also be relevant, but we generally do not have a complete list of investors to supervise learning. I discuss machine learning (clustering, classification, and deep learning) algorithms in more detail later.
 :::
 
 # Tradeoffs
 
-We should first analyze the fundamental challenges of this topic. All methods must make a trade off between accuracy, runtime, and technical complexity.
+We should first analyze the fundamental challenges of this topic. All methods must make a trade-off between accuracy, runtime, and technical complexity.
 
 ## Accuracy
 
-For accuracy, we can prioritize absolute number of matches, percent correct matches, percent true-matches vs false-matches, or some combination of these criteria.
+For accuracy, we can prioritize an absolute number of matches, percent correct matches, percent true matches vs false matches, or some combination of these criteria.
 
-Generally, most situations aim to maximize the number of correct matches without crossing a threshold for percent false-matches. Essentially, we want as many matches as possible and most of them need to be correct.
+Generally, most situations aim to maximize the number of correct matches without crossing a threshold for percent false matches. Essentially, we want as many matches as possible and most of them need to be correct.
 
 ::: {.callout-note}
-While accuracy is most important, an ideal algorithm should be precise or otherwise invariant to minor changes in data format. Some data may contain, for instance, street postfix abbreviations (e.g. "STREET" or "ST") within owner address whereas others will not. An ideal algorithm should retain its accuracy and precision regardless of these differences.
+While accuracy is most important, an ideal algorithm should be precise or otherwise invariant to minor changes in data format. Some data may contain, for instance, street postfix abbreviations (e.g. "STREET" or "ST") within the owner address whereas others will not. An ideal algorithm should retain its accuracy and precision regardless of these differences.
 :::
 
 ## Runtime (Time Complexity)
 
-For execution time or runtime, needs vary. For practioniers, waiting days for an algorithm to run is not feasible. Researchers are generally more willing to consider these algorithms. We must also understand limitations of the hardware each party has access to.
+For execution time or runtime, needs vary. For practitioners, waiting days for an algorithm to run is not feasible. Researchers are generally more willing to consider these algorithms. We must also understand the limitations of the hardware each party has access to.
 
 In this context, there are three potential target categories of runtime:
 
@@ -56,7 +56,7 @@ In this context, there are three potential target categories of runtime:
 2. Better algorithms that experienced professionals can run if necessary,
 3. Optimal algorithms that may require offsite, vast infrastructure.
 
-It is unlikely that the marginal improvement from categeory 2 to 3 is worth the additional effort. Training a deep learning model may be an exception, as it only requires extensive infrastructure and expertise once during training. We will discuss this further in following sections.
+It is unlikely that the marginal improvement from category 2 to 3 is worth the additional effort. Training a deep learning model may be an exception, as it only requires extensive infrastructure and expertise once during training. We will discuss this further in the following sections.
 
 
 ## Technical and Implementation Complexity
@@ -71,7 +71,7 @@ We are generally more concerned with time complexity. It is relatively cheap to 
 
 We can categorize algorithms with Big-O notation; we write time complexity as `O(f(n))`, where `f(n)` is an upper bound function for the runtime of the algorithm given input of size `n`.
 
-Runtime does not mean how long an algorithm takes to run on any individual computer, but rather the number of operations in the worst case. We focus on how quickly the runtime of an algorithm grows in respect to its input size.
+Runtime does not mean how long an algorithm takes to run on any individual computer, but rather the number of operations in the worst case. We focus on how quickly the runtime of an algorithm grows with respect to its input size.
  
 
 ![Graph showing the common Big-O notation functions for runtime complexity [@big-o].](big-o.png)
@@ -90,7 +90,7 @@ This is an exact comparison between two encoded values (in this case, strings). 
 Both `"A" =? "A"` and `"1 MAIN ST" =? "1 MAIN ST"` take approximately the same time to execute, despite longer strings in the second group.
 :::
 
-### Similiarity Metrics or Other Iterative Comparisons: `O(n)`
+### Similarity Metrics or Other Iterative Comparisons: `O(n)`
 
 These are metrics that calculate a similarity score based on aspects of two strings. Many string distance metrics calculate the "distance" between corresponding letters in each string. This requires a comparison for each letter in the shortest string.
 
@@ -159,13 +159,13 @@ Runtime complexity depends on the implementation. However, the entire dataset wi
 
 ## Simple Address Key
 
-In my paper with Brian An, *Uncovering Neighborhood-level Portfolios of Corporate Single-Family Rental Holdings and Equity Loss*, our priority was developing a simple method to accurately quantify ownership scale, rather than identify the portolfios of specific owners [@jua]. However, this is possible with an additional querying method. This section details these methods.
+In my paper with Brian An, *Uncovering Neighborhood-level Portfolios of Corporate Single-Family Rental Holdings and Equity Loss*, our priority was developing a simple method to accurately quantify ownership scale, rather than identify the portfolios of specific owners [@jua]. However, this is possible with an additional querying method. This section details these methods.
 
 **Motivation and Design**
 
 > We rely on a modified version of the owner address to group the same-owners together. Owner address has a lower potential for false positive matches than owner name while also being easier to standardize and correctly match. Moreover, owner name has greater potential for inconsistency between subsidiary corporations, but many subsidiary or shell SFR corporations use the same address. In this way, we account for many cases of nested ownership structure, where different holding corporations may own properties, but report the same business address for records purposes. We favor this approach as it narrows focus to our research question without opaque or complex methodological underpinnings.
 
-In particular, by using an encodable key for each address, this method takes advantage of vectorized comparison. Therefore, it can use a aggreggate or groupby operation for a runtime complexity of `O(n)`.
+In particular, by using an encodable key for each address, this method takes advantage of vectorized comparison. Therefore, it can use an aggreggate or groupby operation for a runtime complexity of `O(n)`.
 
 **Method Details**
 
@@ -179,7 +179,7 @@ In particular, by using an encodable key for each address, this method takes adv
 | NA (filled with 0) | P O Box 370049     | 30037        | 0 PO BOX 370049 30037   |
 :::
 
-::: {.callout-note title="Table 2. Sample of Corporate Owners and Associated Subsidaries" appearance="minimal"}
+::: {.callout-note title="Table 2. Sample of Corporate Owners and Associated Subsidiaries" appearance="minimal"}
 | Owner Address Key                 | Sample of Associated Names                                                  | Common Name                     |
 |-----------------------------------|-----------------------------------------------------------------------------|----------------------------------|
 | 5001 PLAZA ON THE 78746          | ALTO ASSET COMPANY 2 LLC, EPH 2 ASSETS LLC, BAF 1 LLC                       | Amherst Residential              |
@@ -193,7 +193,7 @@ In particular, by using an encodable key for each address, this method takes adv
 
 **Motivation**
 
-Due to the possibility that the same corporation may use multiple addresses, the address key method is not intended to robustly describing the portfolios of specific corporate owners. However, it is possible to query the resulting data (in this example, we label the table *ownership scale*) for this information.
+Due to the possibility that the same corporation may use multiple addresses, the address key method is not intended to robustly describe the portfolios of specific corporate owners. However, it is possible to query the resulting data (in this example, we label the table *ownership scale*) for this information.
 
 **Steps**
 
@@ -203,7 +203,7 @@ Due to the possibility that the same corporation may use multiple addresses, the
 4. Optional: apply a threshold
 
 ::: {.callout-note}
-In the case that a complete list of substrings for each owner is not known, it is possible to begin querying with the base name or other substrings that are known. From this result, add more potentially subtrings.
+In the case that a complete list of substrings for each owner is not known, it is possible to begin querying with the base name or other substrings that are known. From this result, add more potential substrings.
 
 For instance, only query with "Amherst", then look through the resulting associated names. This is why we added "ARVM" as a substring key. In our experience, most substrings or other types of patterns appear for multiple addresses, so it is possible to quickly identify the most common substrings.
 :::
@@ -236,7 +236,7 @@ for owner in owner_keywords:
         ))
     ]
 
-    # Only retain matched subsidary owners over a threshold,
+    # Only retain matched subsidiary owners over a threshold,
     # this is to prevent false positive matches. For instance,
     # if a single parcel was owned by someone with the last name "SYLVAN"
     owned_by_given_corp = owned_by_given_corp[
@@ -269,7 +269,7 @@ The `Simple Address Key` has difficulty with precision; on differently formatted
 
 A more complex address key can be formulated with this in mind, but both the technical complexity and runtime complexity increase.
 
-The simplest form of an `Advanced Address Key` extracts the address number, the suite number, the zip code, and the last two letters of the longest substring in the street address. Such features are almost always invariate to changes in spelling, word order, street postfixes, or other inconsistencies.
+The simplest form of an `Advanced Address Key` extracts the address number, the suite number, the zip code, and the last two letters of the longest substring in the street address. Such features are almost always invariant to changes in spelling, word order, street postfixes, or other inconsistencies.
 
 Address number and suite number can be identified as the first and last series of numbers, separated by spaces. A REGEX pattern can be used to extract these numbers.
 
@@ -283,13 +283,13 @@ Address number and suite number can be identified as the first and last series o
 :::
 
 ::: {.callout-note title="Improvements with Business Registry Data"}
-Availability of usable state business registry data may vary, so I have not included it in the base algorithm. However, if available, it has potential to aggreggate same-owners that use multiple addresses. The exact implementation may vary with different data schemas.
+Availability of usable state business registry data may vary, so I have not included it in the base algorithm. However, if available, it has the potential to aggregate same-owners that use multiple addresses. The exact implementation may vary with different data schemas.
 
-For instance, an owner might record multiple owner addresses for different parcel records, but have a sinlge business address registered with the state. This offers the possibility of exact matching the owner name to business registry data, although this has the same challenges of spelling and naming inconsistencies.
+For instance, an owner might record multiple owner addresses for different parcel records but have a single business address registered with the state. This offers the possibility of exactly matching the owner name to business registry data, although this has the same challenges of spelling and naming inconsistencies.
 
-In some cases, business registry data may list owner, or beneficial, corporations and their addresses. These can be used to aggregate subsidary addresses and names at the state level.
+In some cases, business registry data may list owner, or beneficial, corporations and their addresses. These can be used to aggregate subsidiary addresses and names at the state level.
 
-Regardless, considering data inconsistency, to match even good data from business registry records to parcel or sales records requires the use of fuzzy matching algorithms discussed here.
+Regardless, considering data inconsistency, matching even good data from business registry records to parcel or sales records requires the use of fuzzy matching algorithms discussed here.
 :::
 
 ::: {.callout-note title="Crowdsourcing Rental Registries"}
@@ -321,11 +321,11 @@ Appendix C of my paper (Polimeni and An 2024) contains this data for Fulton Coun
 
 While key methods are ideal for applications that require fast computation or lack computational power, some use of string similarity metrics may be advantageous for those with the capability.
 
-The use of string similarity metrics becomes more useful for ambigious cases, or for grouping owners with similiar names but different addresses. The efficiency may also be increased by blocking; for instance, using a vectorized aggregation to create buckets of owners with at least one matching word substring; doing so reduces the number of necessary comparisons exponentially.
+The use of string similarity metrics becomes more useful for ambiguous cases, or for grouping owners with similar  names but different addresses. The efficiency may also be increased by blocking; for instance, by using a vectorized aggregation to create buckets of owners with at least one matching word substring; doing so reduces the number of necessary comparisons exponentially.
 
 However, most string distance metrics are not optimized for address strings or corporate owner names. They are typically best for spelling inconsistencies. Therefore, developing a string distance metric optimized for corporate names has potential.
 
-My experience indicates that such a string distance metric should prioritze token comparison over letter comparison.
+My experience indicates that such a string distance metric should prioritize token comparison over letter comparison.
 
 For instance, "2018 3 IH BORROWER LP" and "HOME SFR BORROWER IV LLC" have many letters in common, but they are different entities. More weight should be placed on the substrings, like "IH" and "HOME", since common terms like "SFR" and "BORROWER" appear frequently.
 
@@ -337,13 +337,13 @@ Clustering requires that the data can be vectorized. We can encode owner names s
 
 Address keys are also vectorized, but we do not gain anything from using a clustering technique versus a simple aggregation. 
 
-Clustering only has potential if we consider other dimensions in the data; for instance, if we wanted to include property characteristics. For instance, the same owner might own many properties in the same geographic area. However, this method may cause false positives.
+Clustering only has potential if we consider other dimensions in the data; for instance, if we want to include property characteristics. For instance, the same owner might own many properties in the same geographic area. However, this method may cause false positives.
 
 Clustering is likely not a solution to our problem.
 
 ## Deep Learning
 
-Deep learning requries a correct, labeled dataset to train on. This takes additional effort to create. Furthermore, there are many instances of subsidary corporations with no discernable pattern (see more in next section).
+Deep learning requires a correct, labeled dataset to train on. This takes additional effort to create. Furthermore, there are many instances of subsidiary corporations with no discernable pattern (see more in the next section).
 
 Deep learning is also likely not a solution.
 
@@ -351,26 +351,26 @@ Deep learning is also likely not a solution.
 
 Ultimately, the problem is solvable from a computational perspective (there exists a polynomial time algorithm), but it is **not perfectly solvable** from a data perspective.
 
-The challenge comes from cases where both the owner names and addresses are different but they represent the same owner. For instance, how is it possible that any algorithm or model can correctly classify "Jeff 1 LLC" as a subsidary Amherst Capital if the owner address is different? 
+The challenge comes from cases where both the owner names and addresses are different but they represent the same owner. For instance, how is it possible that any algorithm or model can correctly classify "Jeff 1 LLC" as a subsidiary of Amherst Capital if the owner address is different? 
 
-Alternatively, how can an algorithm distinguish "HOME BORROWER I LLC" from "HOME SFR BORROWER LLC" if these are owned by different corporations? Or, if they are owned by the same corporation, but use different addresses, we run into the same issue. There are no string distance metrics that will resolve this issue, and no discernable pattern for deep learning.
+Alternatively, how can an algorithm distinguish "HOME BORROWER I LLC" from "HOME SFR BORROWER LLC" if these are owned by different corporations? Or, if they are owned by the same corporation, but use different addresses, we run into the same issue. There are no string distance metrics that will resolve this issue and no discernable pattern for deep learning.
 
-Without rental registries, or some other complete ground truth, I argue that there is not a possible perfect algorithm. In fact, it may not even be worth the time to aim for this. The best solution is likely an optimized fuzzy address key, couplied with additional data steps to aggregate specific portfolios. This solution finds an ideal balance between accuracy, runtime, and implementation complexity. Additionally, it generally avoids false positives, which is ideal for most purposes.
+Without rental registries, or some other complete ground truth, I argue that there is not a possible perfect algorithm. It may not even be worth the time to aim for this. The best solution is likely an optimized fuzzy address key, coupled with additional data steps to aggregate specific portfolios. This solution finds an ideal balance between accuracy, runtime, and implementation complexity. Additionally, it generally avoids false positives, which is ideal for most purposes.
 
 # A Methods Paper to Reduce These Challenges
 
-For each research question that necesitates the classification or identification of property ownership, researchers must spend valuable time wrangling with these challenges. Practioners can also gain valuable insights from this analysis, but lack the resources or knowledge to overcome these barriers.
+For each research question that necessitates the classification or identification of property ownership, researchers must spend valuable time wrangling with these challenges. Practitioners can also gain valuable insights from this analysis but lack the resources or knowledge to overcome these barriers.
 
 To reduce the burden on researchers and increase the speed at which the impact of SFR investment can be studied, a methods paper should concretely compare all current methods.
 
 The goal of this speculative project is to produce:
 
-- A sample of labeled data (ground truth) across multiple metros areas to train and/or test models against. This is related to the data crowdsourcing mentioned previously.
+- A sample of labeled data (ground truth) across multiple metro areas to train and/or test models against. This is related to the data crowdsourcing mentioned previously.
 - A paper comparing all (and potential) methods, highlighting the tradeoffs for each, and which methods are best for under specific circumstances.
-- Optimized coding tools or an application to faciliate the best procedures.
+- Optimized coding tools or an application to facilitate the best procedures.
 
 # Conclusion
-Until rental registries are established, these challenges will continue to limit actionable and evidence-based policymaking for the housing market. It is essential that we quickly uncover significant evidence to urge policymakers to act before corporations find new ways to obfusicate ownership.
+Until rental registries are established, these challenges will continue to limit actionable and evidence-based policymaking for the housing market. It is essential that we quickly uncover significant evidence to urge policymakers to act before corporations find new ways to obfuscate ownership.
 
 # Q&A from the Live Session
 Will be recorded here after the conclusion of the session.
