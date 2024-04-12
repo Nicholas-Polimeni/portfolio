@@ -22,8 +22,10 @@ bibliography: references.bib
 
 This is a written version of a presentation I gave to a working group of researchers studying the impact of institutional investors. The session was organized by Anthony Damiano, PhD and hosted by the Center for Urban and Regional Affairs at the University of Minnesota Twin Cities.
 
-::: {.callout-tip title="Session Recording Link"}
-Will add after session
+::: {.callout-tip title="Session Recording and Presentation Slides"}
+[Session Recording]()
+
+[Presentation Slides](https://www.nicholaspolimeni.com/resources/presentation.html)
 :::
 
 A need for accessible and robust methods to identify institutional investors, especially single-family rental (SFR) investors, motivates this discussion. Considering the lack of rental registries in the United States, researchers must bear significant technical burdens in identifying these investors from messy parcel and sales records. The challenges include, but are not limited to: inconsistent naming, corporations with multiple business addresses, and difficulty in acquiring data, especially historical data.
@@ -263,6 +265,14 @@ for owner in owner_keywords:
 
 ::: {.callout-note title="Auto-Querying with NLP"}
 Rather than manually building a set of substrings for each corporation, it may be possible to start with a single substring (say, "Amherst") and find all associated owner names based on the address key method. Then, using an NLP technique, automatically identify the most unique substrings ("ARVM" should appear as this is an unusual combination of letters) and query for those.
+:::
+
+::: {.callout-tip title="Application to Research"}
+We utilized this method to create a straightforward framework quantifying equity loss from communities due to institutional investors [@jua].
+
+The analysis was conducted on an extensive dataset of parcel and sale records from 2010 to 2022, revealing $1.25B in lost financial equity for Atlanta, concentrated in predominantly African American neighborhoods.
+
+![Relative equity loss due to SFRs in Atlanta's Neighborhood Statistical Areas [@jua].](equity_loss.png)
 :::
 
 ## Advanced Address Key

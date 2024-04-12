@@ -138,20 +138,22 @@ Please refer to An et al. 2024
 Finds `k` most similar vectors.
 
 ### Approximate KNN: `<= O(n)`
-Finds `k` most similar vectors, but trades guarentee of 100% accuracy with speed.
+Finds `k` most similar vectors, but trades guarantee of 100% accuracy with speed.
 
 ### Deep Learning: `Depends`
 Neural network trained on labeled data.
+
+![](../posts/methods-sfr/ann.png){fig-align="center"}
 
 # Current and Potential Approaches
 
 ## Simple Address Key
 
-In *Uncovering Neighborhood-level Portfolios of Corporate Single-Family Rental Holdings and Equity Loss*, our priority was:
+In *Uncovering Neighborhood-level Portfolios of Corporate Single-Family Rental Holdings and Equity Loss*, our priority was to:
 
-- Developing a simple method to accurately quantify ownership scale
+- Develop a simple method to quantify ownership scale
 - Keep a narrow focus on research question
-- Have a method that is replicable by pracitioners 
+- Develop a method that is replicable by practitioners 
 
 It was not intended to identify specific corporate portfolios, but this is possible with an additional querying method.
 
@@ -159,7 +161,7 @@ It was not intended to identify specific corporate portfolios, but this is possi
 
 Modified version of owner address
 
-- Owner address has lower potential for false positives
+- Owner address has a lower potential for false positives
 - Owner address is easier to standardize
 - Owner name has more inconsistency amongst subsidiary corporations but many subsidiaries use the same address
 
@@ -193,6 +195,15 @@ Runtime complexity of `O(n)` due to vectorized address key.
 | 591 PUTNAM 6830                   | STAR 2021-SFR2 BORROWER L P, STAR 2021 SFR2 BORROWER LP                     | Colony Starwood Homes            |
 :::
 
+## Findings
+We utilized this method to create a straightforward framework quantifying equity loss from communities due to institutional investors.
+
+Analyzed a an extensive dataset of parcel and sale records from 2010 to 2022, revealing:
+
+- $1.25B in lost financial equity for Atlanta
+- Concentrated in predominantly African American neighborhoods.
+
+![](../posts/methods-sfr/equity_loss.png){fig-align="center"}
 
 ## Querying
 Due to the possibility that the same corporation may use multiple addresses, the address key method is not intended to robustly describe the portfolios of specific corporate owners.
@@ -273,7 +284,7 @@ Issues with `Simple Address Key`:
 
 _
 
-The simplest form of an `Advanced Address Key` extracts and concatentates:
+The simplest form of an `Advanced Address Key` extracts and concatenates:
 
 - Address number
 - Suite number
@@ -363,6 +374,8 @@ Deep learning requires a correct, labeled dataset to train on. This takes additi
 ## Is This a Solvable Problem?
 
 Ultimately, the problem is solvable from a computational perspective (there exists a polynomial time algorithm), but it is **not perfectly solvable** from a data perspective.
+
+_
 
 **An impossible problem:** when owner names and owner addresses are different but they represent the same corporation.
 

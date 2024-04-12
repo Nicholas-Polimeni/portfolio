@@ -589,10 +589,11 @@ Nicholas Polimeni
 <h3 id="k-nearest-neighbors-on2">K-Nearest Neighbors: <code>O(n^2)</code></h3>
 <p>Finds <code>k</code> most similar vectors.</p>
 <h3 id="approximate-knn-on">Approximate KNN: <code>&lt;= O(n)</code></h3>
-<p>Finds <code>k</code> most similar vectors, but trades guarentee of 100% accuracy with speed.</p>
+<p>Finds <code>k</code> most similar vectors, but trades guarantee of 100% accuracy with speed.</p>
 <h3 id="deep-learning-depends">Deep Learning: <code>Depends</code></h3>
 <p>Neural network trained on labeled data.</p>
-</section></section>
+
+<img data-src="../posts/methods-sfr/ann.png" class="quarto-figure quarto-figure-center r-stretch"></section></section>
 <section>
 <section id="current-and-potential-approaches" class="title-slide slide level1 center">
 <h1>Current and Potential Approaches</h1>
@@ -600,11 +601,11 @@ Nicholas Polimeni
 </section>
 <section id="simple-address-key" class="slide level2">
 <h2>Simple Address Key</h2>
-<p>In <em>Uncovering Neighborhood-level Portfolios of Corporate Single-Family Rental Holdings and Equity Loss</em>, our priority was:</p>
+<p>In <em>Uncovering Neighborhood-level Portfolios of Corporate Single-Family Rental Holdings and Equity Loss</em>, our priority was to:</p>
 <ul>
-<li>Developing a simple method to accurately quantify ownership scale</li>
+<li>Develop a simple method to quantify ownership scale</li>
 <li>Keep a narrow focus on research question</li>
-<li>Have a method that is replicable by pracitioners</li>
+<li>Develop a method that is replicable by practitioners</li>
 </ul>
 <p>It was not intended to identify specific corporate portfolios, but this is possible with an additional querying method.</p>
 </section>
@@ -612,7 +613,7 @@ Nicholas Polimeni
 <h2>Motivation and Design</h2>
 <p>Modified version of owner address</p>
 <ul>
-<li>Owner address has lower potential for false positives</li>
+<li>Owner address has a lower potential for false positives</li>
 <li>Owner address is easier to standardize</li>
 <li>Owner name has more inconsistency amongst subsidiary corporations but many subsidiaries use the same address</li>
 </ul>
@@ -729,6 +730,16 @@ Nicholas Polimeni
 </div>
 </div>
 </section>
+<section id="findings" class="slide level2">
+<h2>Findings</h2>
+<p>We utilized this method to create a straightforward framework quantifying equity loss from communities due to institutional investors.</p>
+<p>Analyzed a an extensive dataset of parcel and sale records from 2010 to 2022, revealing:</p>
+<ul>
+<li>$1.25B in lost financial equity for Atlanta</li>
+<li>Concentrated in predominantly African American neighborhoods.</li>
+</ul>
+
+<img data-src="../posts/methods-sfr/equity_loss.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="querying" class="slide level2">
 <h2>Querying</h2>
 <p>Due to the possibility that the same corporation may use multiple addresses, the address key method is not intended to robustly describe the portfolios of specific corporate owners.</p>
@@ -891,7 +902,7 @@ Nicholas Polimeni
 <li>Other minor inconsistencies that are impossible to clean like spelling or word order.</li>
 </ul>
 <p>_</p>
-<p>The simplest form of an <code>Advanced Address Key</code> extracts and concatentates:</p>
+<p>The simplest form of an <code>Advanced Address Key</code> extracts and concatenates:</p>
 <ul>
 <li>Address number</li>
 <li>Suite number</li>
@@ -1117,6 +1128,7 @@ Nicholas Polimeni
 <section id="is-this-a-solvable-problem" class="slide level2">
 <h2>Is This a Solvable Problem?</h2>
 <p>Ultimately, the problem is solvable from a computational perspective (there exists a polynomial time algorithm), but it is <strong>not perfectly solvable</strong> from a data perspective.</p>
+<p>_</p>
 <p><strong>An impossible problem:</strong> when owner names and owner addresses are different but they represent the same corporation.</p>
 <p>For instance, how is it possible that any algorithm or model can correctly classify “Jeff 1 LLC” as a subsidiary of Amherst Capital if the owner address is different?</p>
 <p>There are no string distance metrics that will resolve this issue and no discernable pattern for deep learning.</p>
