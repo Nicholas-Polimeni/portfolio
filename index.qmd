@@ -1,7 +1,9 @@
 ---
-title: "About"
+title: Nicholas Polimeni
 about:
-  template: jolla
+  template: trestles
+  image: ./resources/profile.jpg
+  image-shape: round
   links:
     - icon: linkedin
       text: LinkedIn
@@ -9,18 +11,27 @@ about:
     - icon: github
       text: Github
       href: https://github.com/Nicholas-Polimeni
+toc: false
 ---
 
-I'm a Computer Science student and Data Researcher at Georgia Tech's Urban Research Group, using software, GIS, and data science to highlight the impacts of policy decisions. My work includes developing a fuzzy entity resolution algorithm for parcel ownership analysis and uncovering factors influencing homeownership rates in Atlanta neighborhoods. This research helped identify $101M in lost revenue for Fulton County.
+# About
 
-At Collins Aerospace, as a Software Engineer - AI/ML Data Platform, I led enhancements to Smartbid, an image processing and OCR data pipeline for mechanical part information extraction.
+I'm a Computer Science student and Data Researcher at Georgia Tech's *Urban Research Group*, using software, GIS, and data science to highlight the impacts of policy decisions. My work includes developing a fuzzy entity resolution algorithm for parcel ownership analysis and uncovering factors influencing wealth of Atlanta's neighborhoods.
 
-My passion lies in leveraging technology and public policy for a sustainable, equitable world. As an environmental advocate with Citizens' Climate Lobby, I've lobbied for climate policies and previously led the Georgia Tech chapter, gaining support from local leaders.
+My research has uncovered $1.25B in lost financial equity in Atlanta's neighborhoods due to single-family rental investors, with predominantly African American communities bearing the greatest burden. I've also identified $101M in lost revenue for Fulton County due to exploitation of tax appeal processing.
+
+At Collins Aerospace, as a Software Engineer - AI/ML Data Platform, I led enhancements to an image processing and OCR data platform for mechanical part information extraction.
+
+I'm passionate about leveraging technology and public policy to create a more sustainable and equitable world. As an environmental advocate with Citizens' Climate, I've lobbied on Capitol Hill for climate policies and previously led the Georgia Tech chapter, gaining support from local leaders.
 
 ::: {.callout-note}
 Open to Full-Time Software and Data Roles Starting May 2024.
 :::
 
 ::: {.callout-note}
-This website is new. To see my previous website, click [here](old/v1/index.html).
+This website is new. To see my previous website, click [here](old/v1/index.html). Although it may not work at the moment.
 :::
+
+# Publications
+
+Polimeni, Nicholas and An, Brian, Uncovering Neighborhood-level Portfolios of Corporate Single-Family Rental Holdings and Equity Loss (March 5, 2024). Available at SSRN: https://ssrn.com/abstract=4748871 or http://dx.doi.org/10.2139/ssrn.4748871

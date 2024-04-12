@@ -270,7 +270,7 @@ Rather than manually building a set of substrings for each corporation, it may b
 ::: {.callout-tip title="Application to Research"}
 We utilized this method to create a straightforward framework quantifying equity loss from communities due to institutional investors [@jua].
 
-The analysis was conducted on an extensive dataset of parcel and sale records from 2010 to 2022, revealing $1.25B in lost financial equity for Atlanta, concentrated in predominantly African American neighborhoods.
+The analysis was conducted on an extensive dataset of parcel and sale records from 2010 to 2022, revealing $1.25B in lost financial equity in Atlanta's neighborhoods, concentrated in predominantly African American neighborhoods.
 
 ![Relative equity loss due to SFRs in Atlanta's Neighborhood Statistical Areas [@jua].](equity_loss.png)
 :::
