@@ -12,6 +12,7 @@ about:
       text: Github
       href: https://github.com/Nicholas-Polimeni
 toc: false
+page-layout: full
 ---
 
 # About
