@@ -528,22 +528,22 @@
     "objectID": "resources/presentation.html#accuracy",
     "href": "resources/presentation.html#accuracy",
     "title": "Methods to Identify Institutional Investors from Messy Data",
-    "section": "",
-    "text": "Choice to prioritize:\n\nAbsolute number of matches\nPercent correct matches\nPercent true matches vs false matches\nSome combination of these criteria\n\nIn most situations, we want as many matches as possible and most of them need to be correct.\n\n\n\n\n\n\nAn ideal algorithm should be precise or otherwise invariant to minor changes in data format.\nFor instance, some data may contain street postfix abbreviations (e.g. “STREET” or “ST”) within the owner address whereas others will not."
+    "section": "Accuracy",
+    "text": "Accuracy\nChoice to prioritize:\n\nAbsolute number of matches\nPercent correct matches\nPercent true matches vs false matches\nSome combination of these criteria\n\nIn most situations, we want as many matches as possible and most of them need to be correct.\n\n\n\n\n\n\nAn ideal algorithm should be precise or otherwise invariant to minor changes in data format.\nFor instance, some data may contain street postfix abbreviations (e.g. “STREET” or “ST”) within the owner address whereas others will not."
   },
   {
     "objectID": "resources/presentation.html#runtime",
     "href": "resources/presentation.html#runtime",
     "title": "Methods to Identify Institutional Investors from Messy Data",
-    "section": "",
-    "text": "For practitioners, waiting days for an algorithm to run is not feasible, but it may be acceptable for researchers.\nAccess to computational hardware is also a consideration.\n_\n\n\n\n\n\n\nCategories for Runtime\n\n\n\n\nGood algorithms that can be run quickly and easily on any hardware,\nBetter algorithms that experienced professionals can run if necessary,\nOptimal algorithms that may require offsite, vast infrastructure.\n\n\n\nThe marginal difference from category 2 to 3 is likely not worth the effort."
+    "section": "Runtime",
+    "text": "Runtime\nFor practitioners, waiting days for an algorithm to run is not feasible, but it may be acceptable for researchers.\nAccess to computational hardware is also a consideration.\n_\n\n\n\n\nCategories for Runtime\n\n\n\nGood algorithms that can be run quickly and easily on any hardware,\nBetter algorithms that experienced professionals can run if necessary,\nOptimal algorithms that may require offsite, vast infrastructure.\n\n\n\n\n\nThe marginal difference from category 2 to 3 is likely not worth the effort."
   },
   {
     "objectID": "resources/presentation.html#technical-complexity",
     "href": "resources/presentation.html#technical-complexity",
     "title": "Methods to Identify Institutional Investors from Messy Data",
-    "section": "",
-    "text": "How difficult is it for a practitioner or researcher to reproduce the method?\n_\nThis issue can be prevented with the creation of programmatic tools or applications that facilitate the use of these algorithms."
+    "section": "Technical Complexity",
+    "text": "Technical Complexity\nHow difficult is it for a practitioner or researcher to reproduce the method?\n_\nThis issue can be prevented with the creation of programmatic tools or applications that facilitate the use of these algorithms."
   },
   {
     "objectID": "resources/presentation.html#quantifying-algorithmic-runtime",
@@ -557,42 +557,42 @@
     "href": "resources/presentation.html#common-big-o-functions",
     "title": "Methods to Identify Institutional Investors from Messy Data",
     "section": "Common Big-O Functions",
-    "text": "Common Big-O Functions\n\n\n\nGraph showing the common Big-O notation functions for runtime complexity"
+    "text": "Common Big-O Functions\n\nGraph showing the common Big-O notation functions for runtime complexity"
   },
   {
     "objectID": "resources/presentation.html#vectorized-comparison-equals-operator-o1",
     "href": "resources/presentation.html#vectorized-comparison-equals-operator-o1",
     "title": "Methods to Identify Institutional Investors from Messy Data",
     "section": "Vectorized Comparison (Equals Operator): O(1)",
-    "text": "Vectorized Comparison (Equals Operator): O(1)\nThis is an exact comparison between two encoded values (in this case, strings). A computer can take two binary encodings from memory and compare them exactly with a single operation.\n_\n\n\n\n\n\n\nExample\n\n\n\nBoth \"A\" =? \"A\" and \"1 MAIN ST\" =? \"1 MAIN ST\" take approximately the same time to execute, despite longer strings in the second group."
+    "text": "Vectorized Comparison (Equals Operator): O(1)\nThis is an exact comparison between two encoded values (in this case, strings). A computer can take two binary encodings from memory and compare them exactly with a single operation.\n_\n\n\n\n\nExample\n\n\nBoth \"A\" =? \"A\" and \"1 MAIN ST\" =? \"1 MAIN ST\" take approximately the same time to execute, despite longer strings in the second group."
   },
   {
     "objectID": "resources/presentation.html#similarity-metrics-or-other-iterative-comparisons-on",
     "href": "resources/presentation.html#similarity-metrics-or-other-iterative-comparisons-on",
     "title": "Methods to Identify Institutional Investors from Messy Data",
     "section": "Similarity Metrics or Other Iterative Comparisons: O(n)",
-    "text": "Similarity Metrics or Other Iterative Comparisons: O(n)\nThese are metrics that calculate a similarity score based on aspects of two strings. Many string distance metrics calculate the “distance” between corresponding letters in each string. This requires a comparison for each letter in the shortest string.\n_\n\n\n\n\n\n\nExample\n\n\n\nRunning Levenshtein Distance, a common string distance metric, on \"A\" =? \"A\" and \"1 MAIN ST\" =? \"1 MAIN ST\" takes 1 and 9 operations to execute, respectively."
+    "text": "Similarity Metrics or Other Iterative Comparisons: O(n)\nThese are metrics that calculate a similarity score based on aspects of two strings. Many string distance metrics calculate the “distance” between corresponding letters in each string. This requires a comparison for each letter in the shortest string.\n_\n\n\n\n\nExample\n\n\nRunning Levenshtein Distance, a common string distance metric, on \"A\" =? \"A\" and \"1 MAIN ST\" =? \"1 MAIN ST\" takes 1 and 9 operations to execute, respectively."
   },
   {
     "objectID": "resources/presentation.html#aggreggate-groupby-on",
     "href": "resources/presentation.html#aggreggate-groupby-on",
     "title": "Methods to Identify Institutional Investors from Messy Data",
     "section": "Aggreggate / GroupBy: O(n)",
-    "text": "Aggreggate / GroupBy: O(n)\nThese functions utilize the same efficiencies of vectorized comparison by hashing values and placing them into blocks/buckets.\n_\n\n\n\n\n\n\nExample (Python Pandas)\n\n\n\ndata.groupby(\"owner_address\")"
+    "text": "Aggreggate / GroupBy: O(n)\nThese functions utilize the same efficiencies of vectorized comparison by hashing values and placing them into blocks/buckets.\n_\n\n\n\n\nExample (Python Pandas)\n\n\ndata.groupby(\"owner_address\")"
   },
   {
     "objectID": "resources/presentation.html#similarity-threshold-grouping-on2",
     "href": "resources/presentation.html#similarity-threshold-grouping-on2",
     "title": "Methods to Identify Institutional Investors from Messy Data",
     "section": "Similarity Threshold Grouping: O(n^2)",
-    "text": "Similarity Threshold Grouping: O(n^2)\nThese functions typically compare each string to every other string using a similarity metric, grouping strings that are above a certain threshold.\nRuntime may be improved with blocking or concurrency; OpenRefine’s clustering function appears to use an optimized implementation.\n_\n\n\n\n\n\n\nExample (OpenRefine)\n\n\n\nPlease refer to An et al. 2024"
+    "text": "Similarity Threshold Grouping: O(n^2)\nThese functions typically compare each string to every other string using a similarity metric, grouping strings that are above a certain threshold.\nRuntime may be improved with blocking or concurrency; OpenRefine’s clustering function appears to use an optimized implementation.\n_\n\n\n\n\nExample (OpenRefine)\n\n\nPlease refer to An et al. 2024"
   },
   {
     "objectID": "resources/presentation.html#time-complexity-of-ml-algorithms",
     "href": "resources/presentation.html#time-complexity-of-ml-algorithms",
     "title": "Methods to Identify Institutional Investors from Messy Data",
     "section": "Time Complexity of ML Algorithms",
-    "text": "Time Complexity of ML Algorithms\n\nK-Nearest Neighbors: O(n^2)\nFinds k most similar vectors.\n\n\nApproximate KNN: &lt;= O(n)\nFinds k most similar vectors, but trades guarantee of 100% accuracy with speed.\n\n\nDeep Learning: Depends\nNeural network trained on labeled data."
+    "text": "Time Complexity of ML Algorithms\nK-Nearest Neighbors: O(n^2)\nFinds k most similar vectors.\nApproximate KNN: &lt;= O(n)\nFinds k most similar vectors, but trades guarantee of 100% accuracy with speed.\nDeep Learning: Depends\nNeural network trained on labeled data."
   },
   {
     "objectID": "resources/presentation.html#simple-address-key",
@@ -613,21 +613,21 @@
     "href": "resources/presentation.html#method-steps",
     "title": "Methods to Identify Institutional Investors from Messy Data",
     "section": "Method Steps",
-    "text": "Method Steps\n\nExclude address string postfixes to avoid mismatches (e.g., “STREET” vs. “ST”).\nRemove periods, commas, and multiple spaces, and convert all characters to uppercase to eliminate inconsistencies.\nFor PO box addresses, extract numbers from any address string containing at least one number and append them to “PO BOX”.\nConcatenate address number, address string (street name or PO Box), and zip code to create an owner address key.\n\n\n\n\n\n\n\nTable 1. Examples of Owner Address Key Procedure\n\n\n\n\n\n\n\n\n\n\n\n\nAddress Number\nAddress String\nZip Code\nAddress Key\n\n\n\n\n52\nCREEKSIDE PARK\n30022\n52 CREEKSIDE PARK 30022\n\n\nNA (filled with 0)\nP.O. BOX 370049\n30037\n0 PO BOX 370049 30037\n\n\nNA (filled with 0)\nP O Box 370049\n30037\n0 PO BOX 370049 30037"
+    "text": "Method Steps\n\nExclude address string postfixes to avoid mismatches (e.g., “STREET” vs. “ST”).\nRemove periods, commas, and multiple spaces, and convert all characters to uppercase to eliminate inconsistencies.\nFor PO box addresses, extract numbers from any address string containing at least one number and append them to “PO BOX”.\nConcatenate address number, address string (street name or PO Box), and zip code to create an owner address key.\n\n\n\n\n\nTable 1. Examples of Owner Address Key Procedure\n\n\n\n\n\n\n\n\n\n\n\nAddress Number\nAddress String\nZip Code\nAddress Key\n\n\n\n\n52\nCREEKSIDE PARK\n30022\n52 CREEKSIDE PARK 30022\n\n\nNA (filled with 0)\nP.O. BOX 370049\n30037\n0 PO BOX 370049 30037\n\n\nNA (filled with 0)\nP O Box 370049\n30037\n0 PO BOX 370049 30037"
   },
   {
     "objectID": "resources/presentation.html#method-results",
     "href": "resources/presentation.html#method-results",
     "title": "Methods to Identify Institutional Investors from Messy Data",
     "section": "Method Results",
-    "text": "Method Results\n\n\n\n\n\n\nTable 2. Sample of Corporate Owners and Associated Subsidiaries\n\n\n\n\n\n\n\n\n\n\n\nOwner Address Key\nSample of Associated Names\nCommon Name\n\n\n\n\n5001 PLAZA ON THE 78746\nALTO ASSET COMPANY 2 LLC, EPH 2 ASSETS LLC, BAF 1 LLC\nAmherst Residential\n\n\n1850 PARKWAY 30067\nFKH SFR PROPCO D L P, CERBERUS SFR HOLDINGS LP\nFirstKey Homes (Cerberus Capital)\n\n\nPO BOX 4090 85261\nHOME SFR BORROWER IV LLC, PROGRESS RESIDENTIAL BORROWER 15 LLC\nProgress Residential\n\n\n1717 MAIN 75201\n2018 3 IH BORROWER LP, 2018 2 IH BORROWER LP\nInvitation Homes\n\n\n591 PUTNAM 6830\nSTAR 2021-SFR2 BORROWER L P, STAR 2021 SFR2 BORROWER LP\nColony Starwood Homes"
+    "text": "Method Results\n\n\n\n\nTable 2. Sample of Corporate Owners and Associated Subsidiaries\n\n\n\n\n\n\n\n\n\n\nOwner Address Key\nSample of Associated Names\nCommon Name\n\n\n\n\n5001 PLAZA ON THE 78746\nALTO ASSET COMPANY 2 LLC, EPH 2 ASSETS LLC, BAF 1 LLC\nAmherst Residential\n\n\n1850 PARKWAY 30067\nFKH SFR PROPCO D L P, CERBERUS SFR HOLDINGS LP\nFirstKey Homes (Cerberus Capital)\n\n\nPO BOX 4090 85261\nHOME SFR BORROWER IV LLC, PROGRESS RESIDENTIAL BORROWER 15 LLC\nProgress Residential\n\n\n1717 MAIN 75201\n2018 3 IH BORROWER LP, 2018 2 IH BORROWER LP\nInvitation Homes\n\n\n591 PUTNAM 6830\nSTAR 2021-SFR2 BORROWER L P, STAR 2021 SFR2 BORROWER LP\nColony Starwood Homes"
   },
   {
     "objectID": "resources/presentation.html#querying",
     "href": "resources/presentation.html#querying",
     "title": "Methods to Identify Institutional Investors from Messy Data",
     "section": "Querying",
-    "text": "Querying\nDue to the possibility that the same corporation may use multiple addresses, the address key method is not intended to robustly describe the portfolios of specific corporate owners.\nHowever, it can be done with querying.\n_\n\n\n\n\n\n\nQuerying Steps\n\n\n\n\nProduce a owner table by aggregating on address key\nCreate a list of substrings associated with the desired owner (for instance, “AMHERST” and “ARVM” for “Amherst”).\nIdentify rows where at least one associated owner name contains the substring\nOptional: apply a threshold to avoid small, unrelated owners / individuals"
+    "text": "Querying\nDue to the possibility that the same corporation may use multiple addresses, the address key method is not intended to robustly describe the portfolios of specific corporate owners.\nHowever, it can be done with querying.\n_\n\n\n\n\nQuerying Steps\n\n\n\nProduce a owner table by aggregating on address key\nCreate a list of substrings associated with the desired owner (for instance, “AMHERST” and “ARVM” for “Amherst”).\nIdentify rows where at least one associated owner name contains the substring\nOptional: apply a threshold to avoid small, unrelated owners / individuals"
   },
   {
     "objectID": "resources/presentation.html#code-example",
@@ -641,7 +641,7 @@
     "href": "resources/presentation.html#result-of-query",
     "title": "Methods to Identify Institutional Investors from Messy Data",
     "section": "Result of Query",
-    "text": "Result of Query\n\n\n\n\n\n\nTable 3. SFR Ownership Scale of Top 5 Corporate Landlords in Fulton County in 2020\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nParcels Owned in Fulton (Address Key Query)\nOpenRefine (OR) method (An et al. 2024)\nNet Diff.\nOR method + manual review (An et al. 2024)\nNet Diff.\n\n\n\n\nAmherst Residential\n720\n103\n+617\n750\n-30\n\n\nInvitation Homes\n677\n524\n+153\n719\n-42\n\n\nProgress Residential\n619\n457\n+159\n760\n-141\n\n\nSylvan Realty (RNTR)\n422\n250\n+172\n433\n-11\n\n\nTricon Residential\n219\n222\n-3\n280\n-61\n\n\nCerberus Capital\n256\n340\n-86\n349\n-93\n\n\nStarwood Capital\n122\n361\n-239\n450\n-328"
+    "text": "Result of Query\n\n\n\n\nTable 3. SFR Ownership Scale of Top 5 Corporate Landlords in Fulton County in 2020\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nParcels Owned in Fulton (Address Key Query)\nOpenRefine (OR) method (An et al. 2024)\nNet Diff.\nOR method + manual review (An et al. 2024)\nNet Diff.\n\n\n\n\nAmherst Residential\n720\n103\n+617\n750\n-30\n\n\nInvitation Homes\n677\n524\n+153\n719\n-42\n\n\nProgress Residential\n619\n457\n+159\n760\n-141\n\n\nSylvan Realty (RNTR)\n422\n250\n+172\n433\n-11\n\n\nTricon Residential\n219\n222\n-3\n280\n-61\n\n\nCerberus Capital\n256\n340\n-86\n349\n-93\n\n\nStarwood Capital\n122\n361\n-239\n450\n-328"
   },
   {
     "objectID": "resources/presentation.html#advanced-address-key",
@@ -655,7 +655,7 @@
     "href": "resources/presentation.html#advanced-address-key-example",
     "title": "Methods to Identify Institutional Investors from Messy Data",
     "section": "Advanced Address Key Example",
-    "text": "Advanced Address Key Example\n\n\n\n\n\n\nTable 4. Example Advanced Address Key Matching\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAddress 1\nZip 1\nADDR KEY 1\nAddress 2\nZip 2\nADDR KEY 2\nMatched?\n\n\n\n\nPO BOX 490734\n30363\n490734-0-OX30363\nP O. BOX 490734\n30363\n490734-0-OX30363\nYes\n\n\n3505 KOGER BLVD 400\n30315\n3505-400-ER30315\n3505 KOGER BLVD., SUITE 400\n30315\n3505-400-ER30315\nYes\n\n\nOne Buckhead PL STE 300\n30305\n1-300-AD-30305\nOne Buckhead PL STE 325\n30303\n1-325-AD-30305\nNo\n\n\n5 PEACHTREE ST\n30308\n5-0-30308\n5 PEACHTREE ST\n30354\n5-0-30354\nNo"
+    "text": "Advanced Address Key Example\n\n\n\n\nTable 4. Example Advanced Address Key Matching\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAddress 1\nZip 1\nADDR KEY 1\nAddress 2\nZip 2\nADDR KEY 2\nMatched?\n\n\n\n\nPO BOX 490734\n30363\n490734-0-OX30363\nP O. BOX 490734\n30363\n490734-0-OX30363\nYes\n\n\n3505 KOGER BLVD 400\n30315\n3505-400-ER30315\n3505 KOGER BLVD., SUITE 400\n30315\n3505-400-ER30315\nYes\n\n\nOne Buckhead PL STE 300\n30305\n1-300-AD-30305\nOne Buckhead PL STE 325\n30303\n1-325-AD-30305\nNo\n\n\n5 PEACHTREE ST\n30308\n5-0-30308\n5 PEACHTREE ST\n30354\n5-0-30354\nNo"
   },
   {
     "objectID": "resources/presentation.html#business-registry-data",
@@ -676,7 +676,7 @@
     "href": "resources/presentation.html#example-database-schema",
     "title": "Methods to Identify Institutional Investors from Messy Data",
     "section": "Example Database Schema",
-    "text": "Example Database Schema\n\n\n\n\n\n\nTable 5. Example Schema of Ownership Database (Addresses)\n\n\n\n\n\n\nAddress Key\nOwner Index\n\n\n\n\n5001 PLAZA ON THE 78746\n1\n\n\n9800 HILLWOOD 76177\n2\n\n\n1850 PARKWAY 30067\n2\n\n\n\n\n\n\n\n\n\n\n\nTable 6. Example Schema of Ownership Database (Associated Names)\n\n\n\n\n\n\n\n\n\n\n\nOwner Index\nAssociated Names\nCommon Name\n\n\n\n\n1\nALTO ASSET COMPANY 2 LLC, EPH 2 ASSETS LLC, BAF 1 LLC\nAmherst Residential\n\n\n2\nFKH SFR PROPCO D L P, CERBERUS SFR HOLDINGS LP\nFirstKey Homes\n\n\n\n\n\nAppendix C of Polimeni and An 2024 contains this data for Fulton County, GA."
+    "text": "Example Database Schema\n\n\n\n\nTable 5. Example Schema of Ownership Database (Addresses)\n\n\n\n\n\nAddress Key\nOwner Index\n\n\n\n\n5001 PLAZA ON THE 78746\n1\n\n\n9800 HILLWOOD 76177\n2\n\n\n1850 PARKWAY 30067\n2\n\n\n\n\n\n\n\n\n\n\n\nTable 6. Example Schema of Ownership Database (Associated Names)\n\n\n\n\n\n\n\n\n\n\nOwner Index\nAssociated Names\nCommon Name\n\n\n\n\n1\nALTO ASSET COMPANY 2 LLC, EPH 2 ASSETS LLC, BAF 1 LLC\nAmherst Residential\n\n\n2\nFKH SFR PROPCO D L P, CERBERUS SFR HOLDINGS LP\nFirstKey Homes\n\n\n\n\n\n\n\nAppendix C of Polimeni and An 2024 contains this data for Fulton County, GA."
   },
   {
     "objectID": "resources/presentation.html#string-similarity",
@@ -690,7 +690,7 @@
     "href": "resources/presentation.html#ml-approaches",
     "title": "Methods to Identify Institutional Investors from Messy Data",
     "section": "ML Approaches",
-    "text": "ML Approaches\n\nClustering\nClustering requires that the data can be vectorized. We can encode owner names string into vectors using a string embedding model. However, these models are generally intended to encode semantic meaning. They are not useful for identifying strings that look similar.\n\n\nDeep Learning\nDeep learning requires a correct, labeled dataset to train on. This takes additional effort to create. Furthermore, there are many instances of subsidiary corporations with no discernable pattern."
+    "text": "ML Approaches\nClustering\nClustering requires that the data can be vectorized. We can encode owner names string into vectors using a string embedding model. However, these models are generally intended to encode semantic meaning. They are not useful for identifying strings that look similar.\nDeep Learning\nDeep learning requires a correct, labeled dataset to train on. This takes additional effort to create. Furthermore, there are many instances of subsidiary corporations with no discernable pattern."
   },
   {
     "objectID": "resources/presentation.html#is-this-a-solvable-problem",
@@ -711,7 +711,7 @@
     "href": "resources/presentation.html#a-methods-paper-to-reduce-these-challenges",
     "title": "Methods to Identify Institutional Investors from Messy Data",
     "section": "A Methods Paper to Reduce These Challenges",
-    "text": "A Methods Paper to Reduce These Challenges\nTo reduce the burden on researchers and increase the speed at which the impact of SFR investment can be studied, a methods paper should concretely compare all current methods.\n\n\n\n\n\n\nThe goal of this speculative project is to produce:\n\n\n\n\nA sample of labeled data (ground truth) across multiple metro areas to train and/or test models against. This is related to the data crowdsourcing mentioned previously.\nA paper comparing all (and potential) methods, highlighting the tradeoffs for each, and which methods are best for under specific circumstances.\nOptimized coding tools or an application to facilitate the best procedures."
+    "text": "A Methods Paper to Reduce These Challenges\nTo reduce the burden on researchers and increase the speed at which the impact of SFR investment can be studied, a methods paper should concretely compare all current methods.\n\n\n\n\nThe goal of this speculative project is to produce:\n\n\n\nA sample of labeled data (ground truth) across multiple metro areas to train and/or test models against. This is related to the data crowdsourcing mentioned previously.\nA paper comparing all (and potential) methods, highlighting the tradeoffs for each, and which methods are best for under specific circumstances.\nOptimized coding tools or an application to facilitate the best procedures."
   },
   {
     "objectID": "resources/presentation.html#findings",

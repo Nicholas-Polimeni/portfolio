@@ -5,7 +5,7 @@ author: Nicholas Polimeni
 institute: College of Computing and School of Public Policy, Georgia Institute of Technology
 format:
   revealjs:
-    chalkboard: true
+    embed-resources: true
 toc: true
 toc-depth: 1
 show-slide-number: print
