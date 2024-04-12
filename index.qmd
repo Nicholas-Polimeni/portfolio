@@ -17,13 +17,15 @@ page-layout: full
 
 # About
 
-I'm a Computer Science student and Data Researcher at Georgia Tech's *Urban Research Group*, using software, GIS, and data science to highlight the impacts of policy decisions. My work includes developing a fuzzy entity resolution algorithm for parcel ownership analysis and uncovering factors influencing wealth of Atlanta's neighborhoods.
+I am a computer science student and Create-X Scholar at the *Georgia Institiute of Technology*. I'm passionate about leveraging technology to create a more sustainable and equitable world.
+
+At Georgia Tech's *Urban Research Group*, I lead data efforts and serve as Lab Manager, using software, GIS, and data science to highlight the impacts of policy decisions. My work includes developing a fuzzy entity resolution algorithm for parcel ownership analysis and uncovering factors influencing wealth of Atlanta's neighborhoods.
 
 My research has uncovered $1.25B in lost financial equity in Atlanta's neighborhoods due to single-family rental investors, with predominantly African American communities bearing the greatest burden. I've also identified $101M in lost revenue for Fulton County due to exploitation of tax appeal processing.
 
-At Collins Aerospace, as a Software Engineer - AI/ML Data Platform, I led enhancements to an image processing and OCR data platform for mechanical part information extraction.
+At *Collins Aerospace*, as a Software Engineer on the AI/ML Data Platform team, I led enhancements to an image processing and OCR data platform for extracting information from engineering diagrams. This service was used by engineers and business units across Collins. I leveraged Python, SQL, and AWS services to build a cloud-first, distributed architecture that was capable of handling heavy loads.
 
-I'm passionate about leveraging technology and public policy to create a more sustainable and equitable world. As an environmental advocate with Citizens' Climate, I've lobbied on Capitol Hill for climate policies and previously led the Georgia Tech chapter, gaining support from local leaders.
+As an environmental advocate with Citizens' Climate, I've lobbied on Capitol Hill in the offices of multiple representative and senators for climate policies. I previously led the Georgia Tech chapter of CCL, gaining support from Atlanta leaders.
 
 ::: {.callout-note}
 Open to Full-Time Software and Data Roles Starting May 2024.
