@@ -6,7 +6,6 @@ website:
   navbar:
     right:
       - posts.qmd
-      - index.qmd
       - icon: linkedin
         href: https://www.linkedin.com/in/nickpolimeni/
       - icon: github
